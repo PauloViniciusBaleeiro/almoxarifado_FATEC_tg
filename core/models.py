@@ -1,3 +1,131 @@
 from django.db import models
 
-# Create your models here.
+
+class Estado(models.Model):
+    sigla = models.CharField(max_length=2, primary_key=True)
+    descrição = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.sigla
+
+
+class Cidade(models.Model):
+    nome = models.CharField(max_length=50)
+    estado = models.ForeignKey(Estado)
+
+    def __str__(self):
+        return self.nome
+
+
+class Fabricante(models.Model):
+    LOGRADOUROS = (
+        'Aeroporto',
+        'Alameda',
+        'Área',
+        'Avenida',
+        'Campo',
+        'Chácara',
+        'Colônia',
+        'Condomínio',
+        'Conjunto',
+        'Distrito',
+        'Esplanada',
+        'Estação',
+        'Estrada',
+        'Favela',
+        'Feira',
+        'Jardim',
+        'Ladeira',
+        'Lago',
+        'Lagoa',
+        'Largo',
+        'Loteamento',
+        'Morro',
+        'Núcleo',
+        'Parque',
+        'Passarela',
+        'Pátio',
+        'Praça',
+        'Quadra',
+        'Recanto',
+        'Residencial',
+        'Rodovia',
+        'Rua',
+        'Setor',
+        'Sítio',
+        'Travessa',
+        'Trecho',
+        'Trevo',
+        'Vale',
+        'Vereda',
+        'Via',
+        'Viaduto',
+        'Viela',
+        'Vila',
+
+    )
+    CNPJ = models.IntegerField(max_length=14, unique=True)
+    nome_fantasia = models.CharField(max_length=20)
+    razao_social = models.CharField(max_length=20)
+    logradouro = models.CharField(max_length=20, choices=LOGRADOUROS)
+    nome_do_logradouro = models.CharField(max_length=20)
+    numero = models.IntegerField(max_length=4)
+    complemento = models.CharField(max_length=20)
+    bairro = models.CharField(max_length=20)
+    cep = models.IntegerField(max_length=9)
+    cidade = models.ForeignKey(Cidade)
+
+
+class Contato(models.Model):
+    telefone = models.IntegerField(max_length=20)
+    e_mail = models.EmailField
+
+
+class Contato_Fabricante(models.Model):
+    fabricante = models.OneToOneField(Fabricante)
+
+
+class Tipo_de_Material(models.Model):
+    descrição = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.descrição
+
+
+class Material(models.Model):
+    nome = models.CharField(max_length=50)
+    descrição = models.CharField(max_length=300)
+    unidade = models.CharField(max_length=4)
+    quantidade = models.FloatField()
+    tipo_de_material= models.ForeignKey(Tipo_de_Material, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nome
+
+
+# class Setor(models.Model):
+#     nome = models.CharField(max_length=20)
+#
+#     def __str__(self):
+#         return self.nome
+#
+# class Posição_de_Estocagem(models.Model):
+#     TIPOS = (('1', 'INDIFERENTE'),
+#              ('2', 'VENCIMENTO'),
+#              ('3', 'PEPS'),
+#              ('4', 'UEPS')
+#                )
+#     endereço_setor = models.CharField(max_length=8, primary_key=True)
+#     nome_posição = models.CharField(max_length=20)
+#     tipo_saida= models.CharField(max_length=2, choices=TIPOS, default=1)
+#
+#     def __str__(self):
+#         return self.nome_posição
+#
+# class Posição_de_Estocagem_Material(models.Model):
+#     endereço_setor = models.ForeignKey(Posição_de_Estocagem)
+#     material = models.ForeignKey(Material)
+#
+#     def __str__(self):
+#         return self.endereço_setor + ' - ' + self.material
+
