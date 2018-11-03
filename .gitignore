@@ -5,3 +5,7 @@ db.sqllite3
 .DS_Store
 media
 .env
+
+# migrations
+core/migrations/0*
+estocagem/migrations/0*
