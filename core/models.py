@@ -11,78 +11,36 @@ class Estado(models.Model):
 
 class Cidade(models.Model):
     nome = models.CharField(max_length=50)
-    estado = models.ForeignKey(Estado)
+    estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nome
 
 
 class Fabricante(models.Model):
-    LOGRADOUROS = (
-        'Aeroporto',
-        'Alameda',
-        'Área',
-        'Avenida',
-        'Campo',
-        'Chácara',
-        'Colônia',
-        'Condomínio',
-        'Conjunto',
-        'Distrito',
-        'Esplanada',
-        'Estação',
-        'Estrada',
-        'Favela',
-        'Feira',
-        'Jardim',
-        'Ladeira',
-        'Lago',
-        'Lagoa',
-        'Largo',
-        'Loteamento',
-        'Morro',
-        'Núcleo',
-        'Parque',
-        'Passarela',
-        'Pátio',
-        'Praça',
-        'Quadra',
-        'Recanto',
-        'Residencial',
-        'Rodovia',
-        'Rua',
-        'Setor',
-        'Sítio',
-        'Travessa',
-        'Trecho',
-        'Trevo',
-        'Vale',
-        'Vereda',
-        'Via',
-        'Viaduto',
-        'Viela',
-        'Vila',
 
-    )
     CNPJ = models.IntegerField(max_length=14, unique=True)
     nome_fantasia = models.CharField(max_length=20)
     razao_social = models.CharField(max_length=20)
-    logradouro = models.CharField(max_length=20, choices=LOGRADOUROS)
+    logradouro = models.CharField(max_length=20, default='rua')
     nome_do_logradouro = models.CharField(max_length=20)
     numero = models.IntegerField(max_length=4)
     complemento = models.CharField(max_length=20)
     bairro = models.CharField(max_length=20)
     cep = models.IntegerField(max_length=9)
-    cidade = models.ForeignKey(Cidade)
+    cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nome_fantasia
 
 
 class Contato(models.Model):
-    telefone = models.IntegerField(max_length=20)
+    telefone = models.IntegerField()
     e_mail = models.EmailField
 
 
 class Contato_Fabricante(models.Model):
-    fabricante = models.OneToOneField(Fabricante)
+    fabricante = models.OneToOneField(Fabricante, on_delete=models.CASCADE)
 
 
 class Tipo_de_Material(models.Model):
@@ -98,6 +56,10 @@ class Material(models.Model):
     unidade = models.CharField(max_length=4)
     quantidade = models.FloatField()
     tipo_de_material= models.ForeignKey(Tipo_de_Material, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'material'
+        verbose_name_plural = "materiais"
 
     def __str__(self):
         return self.nome
