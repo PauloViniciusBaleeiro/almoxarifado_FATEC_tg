@@ -42,9 +42,17 @@ class Contato(models.Model):
 class Contato_Fabricante(models.Model):
     fabricante = models.OneToOneField(Fabricante, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = 'contato - fabricante'
+        verbose_name_plural = 'contatos - fabricantes'
 
-class Tipo_de_Material(models.Model):
+
+class TipodeMaterial(models.Model):
     descrição = models.CharField(max_length=30)
+
+    class Meta:
+        verbose_name = 'tipo de material'
+        verbose_name_plural = 'tipos de materiais'
 
     def __str__(self):
         return self.descrição
@@ -55,7 +63,7 @@ class Material(models.Model):
     descrição = models.CharField(max_length=300)
     unidade = models.CharField(max_length=4)
     quantidade = models.FloatField()
-    tipo_de_material= models.ForeignKey(Tipo_de_Material, on_delete=models.CASCADE)
+    tipo_de_material= models.ForeignKey(TipodeMaterial, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'material'
