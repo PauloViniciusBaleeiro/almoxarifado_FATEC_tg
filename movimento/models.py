@@ -12,7 +12,7 @@ class Movimento(models.Model):
     )
     data_do_movimento = models.DateField(auto_now=True, editable=False)
     usuário = models.ForeignKey(User, on_delete=models.PROTECT)
-    tipo_de_movimento = models.CharField(choices=TIPOS)
+    tipo_de_movimento = models.CharField(choices=TIPOS, max_length=10)
 
     class Meta:
         verbose_name = 'Movimento'
@@ -20,8 +20,8 @@ class Movimento(models.Model):
 
 
 class MovimentoMaterial(models.Model):
-    movimento = models.ForeignKey(Movimento)
-    material = models.ForeignKey(Material)
+    movimento = models.ForeignKey(Movimento, on_delete=models.PROTECT)
+    material = models.ForeignKey(Material, on_delete=models.PROTECT)
     motivo = models.CharField(max_length=20)
     quatidade = models.FloatField()
 
@@ -61,7 +61,7 @@ class Requisicao(models.Model):
     )
     data = models.DateField(auto_now=True)
     usuario = models.ForeignKey(User, on_delete=models.PROTECT)
-    situação = models.CharField(choices=SITUAÇÃO)
+    situação = models.CharField(choices=SITUAÇÃO, max_length=10)
 
     class Meta:
         verbose_name = 'requisição'
