@@ -134,3 +134,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = FRONTEND_DIR
 LOGIN_URL = FRONTEND_DIR + '/templates/registration/'
+LOGIN_REDIRECT_URL = '/'
