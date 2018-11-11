@@ -59,7 +59,7 @@ ROOT_URLCONF = 'TG_Fatec.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(FRONTEND_DIR, '/templates/')],
+        'DIRS': [os.path.join(FRONTEND_DIR, 'templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,5 +133,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = FRONTEND_DIR
-LOGIN_URL = FRONTEND_DIR + '/templates/registration/'
+LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
