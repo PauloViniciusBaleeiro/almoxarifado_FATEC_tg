@@ -19,10 +19,9 @@ from core import urls as core_urls
 from django.contrib.auth import urls as auth_urls
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(core_urls)),
-    path('login/', include(auth_urls), name='login'),
+    path('users/', include(auth_urls)),
 
 ]
