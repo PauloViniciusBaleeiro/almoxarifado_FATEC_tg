@@ -5,6 +5,9 @@ db.sqllite3
 .DS_Store
 media
 .env
+tabelas.png
+*.dot
+
 
 # migrations
 core/migrations/0*
