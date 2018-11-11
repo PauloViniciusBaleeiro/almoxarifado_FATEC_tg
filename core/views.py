@@ -26,3 +26,6 @@ def novo_fabricante(request):
 
     if form.is_valid():
         form.save()
+        return redirect('list_fabricantes')
+    return render(request, 'novo_fabricante.html', {'form': form})
+
