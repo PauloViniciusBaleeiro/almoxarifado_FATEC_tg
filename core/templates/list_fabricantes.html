@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Fabricantes</title>
+</head>
+<body>
+{% if fabricantes %}
+    <ul>
+    {% for fabricante in fabricantes %}
+      <li>
+        <a href="#">{{ fabricante.nome_fantasia }}</a>
+        <a href="#">deletar</a>
+      </li>
+    </ul>
+    {% endfor %}
+{% else %}
+<h2> Não há fabricantes cadastrados</h2>
+<a href="#">Clique Aqui para cadastrar um fabricante</a>
+{% endif %}
+</body>
+</html>
