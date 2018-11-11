@@ -19,15 +19,15 @@ class Cidade(models.Model):
 
 class Fabricante(models.Model):
 
-    CNPJ = models.IntegerField(max_length=14, unique=True)
+    CNPJ = models.IntegerField(unique=True)
     nome_fantasia = models.CharField(max_length=20)
     razao_social = models.CharField(max_length=20)
     logradouro = models.CharField(max_length=20, default='rua')
     nome_do_logradouro = models.CharField(max_length=20)
-    numero = models.IntegerField(max_length=4)
+    numero = models.IntegerField()
     complemento = models.CharField(max_length=20)
     bairro = models.CharField(max_length=20)
-    cep = models.IntegerField(max_length=9)
+    cep = models.IntegerField()
     cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -64,6 +64,7 @@ class Material(models.Model):
     unidade = models.CharField(max_length=4)
     quantidade = models.FloatField()
     tipo_de_material= models.ForeignKey(TipodeMaterial, on_delete=models.CASCADE)
+    fabricante = models.ForeignKey(Fabricante, on_delete=models.PROTECT, blank=True)
 
     class Meta:
         verbose_name = 'material'
