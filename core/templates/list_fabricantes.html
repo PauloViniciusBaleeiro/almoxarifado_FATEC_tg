@@ -6,10 +6,10 @@
 </head>
 <body>
 {% if fabricantes %}
-    <ul>
     {% for fabricante in fabricantes %}
+      <ul>
       <li>
-        <a href="#">{{ fabricante.nome_fantasia }}</a>
+        <a href="{% url 'atualiza_fabricante' fabricante.id %}">{{ fabricante.nome_fantasia }}</a>
         <a href="#">deletar</a>
       </li>
     </ul>
@@ -18,5 +18,7 @@
 <h2> Não há fabricantes cadastrados</h2>
 <a href="{%  url 'novo_fabricante' %}">Clique Aqui para cadastrar um fabricante</a>
 {% endif %}
+<br><br>
+<a href="{% url 'novo_fabricante' %}">Novo fabricante</a>
 </body>
 </html>
