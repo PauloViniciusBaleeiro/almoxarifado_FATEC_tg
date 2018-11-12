@@ -87,7 +87,7 @@ def cadastra_estado(request):
         return redirect('nova_cidade')
     return render(request, 'novo_estado.html', {'form': form})
 
-@login_required
-def cadastra_material(request):
+# @login_required
+# def cadastra_material(request):
 
 
