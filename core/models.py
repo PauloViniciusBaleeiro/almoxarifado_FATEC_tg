@@ -51,7 +51,7 @@ class TipodeMaterial(models.Model):
         verbose_name_plural = 'tipos de materiais'
 
     def __str__(self):
-        return self.descrição
+        return self.descricao
 
 
 class Material(models.Model):

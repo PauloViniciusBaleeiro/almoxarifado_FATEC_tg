@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <title>Novo Estado</title>
 </head>
-<body><form  method="POST" enctype="multipart/form-data">
+<body>
+<a href="{% url 'home' %}"> <h4>Home </h4></a>
+<form  method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
         <button type="submit"> Salvar </button>

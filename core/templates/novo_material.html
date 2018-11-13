@@ -10,6 +10,7 @@
   <title>Novo Material</title>
 </head>
 <body>
+<a href="{% url 'home' %}"> <h4>Home </h4></a>
 <form  method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
