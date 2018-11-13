@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Fabricantes</title>
+</head>
+<body>
+{% if materiais %}
+    {% for material in materiais %}
+      <ul>
+      <li>
+        <a href="{% url 'atualiza_fabricante' material.id %}">{{ material.nome }}</a>
+        <a href="#">deletar</a>
+      </li>
+    </ul>
+    {% endfor %}
+{% else %}
+<h2> Não há materiais cadastrados</h2>
+<a href="{%  url 'novo_material' %}">Clique Aqui para cadastrar um material</a>
+{% endif %}
+<br><br>
+<a href="{% url 'novo_material' %}">Novo material</a>
+</body>
+</html>
