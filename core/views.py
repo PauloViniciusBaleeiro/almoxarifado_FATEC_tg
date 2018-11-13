@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from .forms import FabricanteForms, CidadeForm, EstadoForms, ContatoForm
-from .models import Fabricante, Contato
+from .forms import (FabricanteForms, CidadeForm, EstadoForms, ContatoForm, MaterialForm, TipodeMaterialForm)
+from .models import Fabricante, Contato, Material
 
 
 def home(request):
@@ -87,7 +87,25 @@ def cadastra_estado(request):
         return redirect('nova_cidade')
     return render(request, 'novo_estado.html', {'form': form})
 
-# @login_required
-# def cadastra_material(request):
+@login_required
+def lista_material(request):
+    materiais = Material.objects.all()
+    return render(request, 'list_material.html', {'materiais': materiais})
 
+@login_required
+def cadastra_material(request):
+    form = MaterialForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect('lista_material')
+    return render (request, 'novo_material.html', {'form' : form})
+
+
+@login_required
+def cadastra_tipo_de_material(request):
+    form = TipodeMaterialForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect('novo_material')
+    return render(request, 'novo_tipo_de_material.html', {'form': form})
 
