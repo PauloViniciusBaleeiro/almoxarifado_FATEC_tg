@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Fabricante, Cidade, Estado, Contato
+from .models import Fabricante, Cidade, Estado, Contato, Material, TipodeMaterial
 
 
 class FabricanteForms(ModelForm):
@@ -24,3 +24,15 @@ class ContatoForm(ModelForm):
     class Meta:
         model = Contato
         fields = ['telefone', 'e_mail']
+
+
+class MaterialForm(ModelForm):
+    class Meta:
+        model = Material
+        fields = ['nome', 'descrição', 'unidade', 'quantidade', 'tipo_de_material', 'fabricante']
+
+
+class TipodeMaterialForm(ModelForm):
+    class Meta:
+        model = TipodeMaterial
+        fields = ['descrição']
