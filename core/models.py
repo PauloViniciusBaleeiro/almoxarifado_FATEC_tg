@@ -3,7 +3,7 @@ from django.db import models
 
 class Estado(models.Model):
     sigla = models.CharField(max_length=2, primary_key=True)
-    descrição = models.CharField(max_length=20)
+    descricao = models.CharField(max_length=20, verbose_name='descrição', null=True)
 
     def __str__(self):
         return self.sigla
@@ -11,7 +11,7 @@ class Estado(models.Model):
 
 class Cidade(models.Model):
     nome = models.CharField(max_length=50)
-    estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
+    estado = models.ForeignKey(Estado, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.nome + '/' + str(self.estado)
@@ -23,11 +23,11 @@ class Fabricante(models.Model):
     nome_fantasia = models.CharField(max_length=20, verbose_name='nome fantasia')
     razao_social = models.CharField(max_length=20, verbose_name='razão social')
     logradouro = models.CharField(max_length=20, default='rua')
-    nome_do_logradouro = models.CharField(max_length=20, verbose_name='nome')
+    nome_do_logradouro = models.CharField(max_length=20, verbose_name='nome do logradouro')
     numero = models.IntegerField(verbose_name='número', blank=True)
     complemento = models.CharField(max_length=20, blank=True)
     bairro = models.CharField(max_length=20)
-    cep = models.IntegerField()
+    cep = models.CharField(max_length=9)
     cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -44,7 +44,7 @@ class Contato(models.Model):
 
 
 class TipodeMaterial(models.Model):
-    descrição = models.CharField(max_length=30)
+    descricao = models.CharField(max_length=30, verbose_name='descrição', null=True)
 
     class Meta:
         verbose_name = 'tipo de material'
@@ -56,10 +56,10 @@ class TipodeMaterial(models.Model):
 
 class Material(models.Model):
     nome = models.CharField(max_length=50)
-    descrição = models.CharField(max_length=300)
+    descricao = models.CharField(max_length=300, verbose_name='descrição', null=True)
     unidade = models.CharField(max_length=4)
     quantidade = models.FloatField()
-    tipo_de_material= models.ForeignKey(TipodeMaterial, on_delete=models.CASCADE)
+    tipo_de_material= models.ForeignKey(TipodeMaterial, on_delete=models.CASCADE, verbose_name='tipo do material')
     fabricante = models.ForeignKey(Fabricante, on_delete=models.PROTECT, blank=True, null=True)
 
     class Meta:
