@@ -109,3 +109,13 @@ def cadastra_tipo_de_material(request):
         return redirect('novo_material')
     return render(request, 'novo_tipo_de_material.html', {'form': form})
 
+@login_required
+def altera_material(request, id):
+    material = get_object_or_404(Material, pk=id)
+    form = MaterialForm(request.POST or None, request.FILES or None, instance=material)
+
+    if form.is_valid():
+        form.save()
+        return redirect('lista_material')
+    return render(request, 'novo_material.html', {'form': form})
+
