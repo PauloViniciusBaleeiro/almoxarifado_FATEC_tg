@@ -11,7 +11,7 @@ class FabricanteForms(ModelForm):
 class EstadoForms(ModelForm):
     class Meta:
         model = Estado
-        fields = ['sigla', 'descrição']
+        fields = ['sigla', 'descricao']
 
 
 class CidadeForm(ModelForm):
@@ -29,10 +29,10 @@ class ContatoForm(ModelForm):
 class MaterialForm(ModelForm):
     class Meta:
         model = Material
-        fields = ['nome', 'descrição', 'unidade', 'quantidade', 'tipo_de_material', 'fabricante']
+        fields = ['nome', 'descricao', 'unidade', 'quantidade', 'tipo_de_material', 'fabricante']
 
 
 class TipodeMaterialForm(ModelForm):
     class Meta:
         model = TipodeMaterial
-        fields = ['descrição']
+        fields = ['descricao']
