@@ -16,6 +16,10 @@
       <a href="{% url 'login' %}">Login</a>
     {% endif %}
 <br>
-<a href="{% url 'list_fabricantes' %}">Fabricantes</a>
+<ul>
+  <h4> Menu </h4>
+  <li><a href="{% url 'list_fabricantes' %}">Fabricantes</a></li>
+  <li><a href="{% url 'lista_material' %}">Materiais</a></li>
+</ul>
 </body>
 </html>
