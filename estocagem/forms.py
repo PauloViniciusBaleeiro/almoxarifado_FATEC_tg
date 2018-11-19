@@ -5,4 +5,10 @@ from .models import PosiçãodeEstocagem
 class PosicaoForm(ModelForm):
     class Meta:
         model = PosiçãodeEstocagem
-        fields = ['material', 'endereço_setor', 'nome_posição', 'tipo_saida']
+        fields = ['endereco_setor', 'nome_posicao', 'tipo_saida']
+
+
+class VinculaMaterialForm(ModelForm):
+    class Meta:
+        model = PosiçãodeEstocagem
+        fields = ['material']
