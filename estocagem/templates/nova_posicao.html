@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nova posição</title>
+</head>
+<body>
+<a href="{% url 'home' %}"> <h4>Home </h4></a>
+<form  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit"> Salvar </button>
+</form>
+<br>
+<a href="{% url 'list_posicoes' %}">Voltar à listagem</a>
+</body>
+</html>
