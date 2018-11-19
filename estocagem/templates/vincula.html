@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vincula</title>
+</head>
+<body>
+<a href="{% url 'home' %}"> <h4>Home </h4></a>
+<br>
+<h1> Vincular materiais ao endereco {{ posicao.endereço_setor }}</h1>
+<br>
+{% if list_material %}
+{% for item in list_material %}
+<ul>
+  <li>
+    <p>Código: {{ item.material.id }}</p>
+    <p>Nome: {{ item.material.nome }}</p>
+    <p>Unidade: {{ item.material.unidade }}</p>
+    <p>Tipo: {{ item.material.tipo_de_material }}</p>
+    <a href="#">Remover</a>
+    <br><br>
+  </li>
+  <li>
+    <form  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit"> Adicionar </button>
+    </form>
+  </li>
+</ul>
+<br>
+{% endfor %}
+<br>
+{% else %}
+<form  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit"> Adicionar </button>
+</form>
+{% endif %}
+<a href="{% url 'list_posicoes' %}">Voltar</a>
+</body>
+</html>
