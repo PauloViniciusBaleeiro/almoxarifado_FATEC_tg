@@ -22,6 +22,17 @@ def cadastra_posicao(request):
     return render(request, 'nova_posicao.html', {'form': form})
 
 @login_required
+def remover_posicao(request, id):
+    try:
+        posicao = PosiçãodeEstocagem.objects.get(id=id)
+    except:
+        return HttpResponse('Posição não encontrada!')
+    if request.method == 'POST':
+        posicao.delete()
+        return redirect('list_posicoes')
+    return render(request, 'del_posicao_confirma.html', {'posicao': posicao})
+
+@login_required
 def vincula_material(request, id):
     try:
         posicao = PosiçãodeEstocagem.objects.get(id=id)
