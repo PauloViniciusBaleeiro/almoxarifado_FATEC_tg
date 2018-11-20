@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import PosiçãodeEstocagem
+from .models import PosiçãodeEstocagem, VinculaPosicao
 
 
 class PosicaoForm(ModelForm):
@@ -10,5 +10,5 @@ class PosicaoForm(ModelForm):
 
 class VinculaMaterialForm(ModelForm):
     class Meta:
-        model = PosiçãodeEstocagem
+        model = VinculaPosicao
         fields = ['material']
