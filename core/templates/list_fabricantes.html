@@ -11,7 +11,7 @@
       <ul>
       <li>
         <a href="{% url 'atualiza_fabricante' fabricante.id %}">{{ fabricante.nome_fantasia }}</a>
-        <a href="#">deletar</a>
+        <a href="{% url 'delete' fabricante.id %}">deletar</a>
       </li>
     </ul>
     {% endfor %}

@@ -17,7 +17,7 @@
     <p>Nome: {{ material.material.nome }}</p>
     <p>Unidade: {{ material.material.unidade }}</p>
     <p>Tipo: {{ material.material.tipo_de_material }}</p>
-    <a href="#">Remover</a>
+    <a href="{% url 'remove_vinculo' material.id %}">Remover</a>
     <br><br>
   </li>
 </ul>

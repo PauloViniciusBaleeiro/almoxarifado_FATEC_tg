@@ -11,15 +11,15 @@
       <ul>
       <li>
         <a href="#">{{ posicao }}</a>
-        <a href="#">deletar</a>
+        <a href="{% url 'remover_posicao' posicao.id %}">deletar</a>
       </li>
     </ul>
     {% endfor %}
 {% else %}
 <h2> Não há posições cadastradas</h2>
-<a href="{% url 'nova_posicao' %}">Clique Aqui para cadastrar uma nova posicao</a>
+<a href="{% url 'nova_posicao' %}">Clique aqui para cadastrar uma nova posicao</a>
 {% endif %}
-<br><br>
-<a href="#">Novo fabricante</a>
+<br>
+<a href="{% url 'nova_posicao' %}">Clique Aqui para cadastrar uma nova posicao</a>
 </body>
 </html>

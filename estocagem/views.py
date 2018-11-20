@@ -28,9 +28,12 @@ def remover_posicao(request, id):
     except:
         return HttpResponse('Posição não encontrada!')
     if request.method == 'POST':
-        posicao.delete()
+        try:
+            posicao.delete()
+        except:
+            return HttpResponse('Não é permitido remover, há materiais vinculados ao endereço!')
         return redirect('list_posicoes')
-    return render(request, 'del_posicao_confirma.html', {'posicao': posicao})
+    return render(request, 'del_posicao_confirmacao.html', {'posicao': posicao})
 
 @login_required
 def vincula_material(request, id):
@@ -49,3 +52,18 @@ def vincula_material(request, id):
             return HttpResponse('Item já alocado!')
         return redirect('vincula_material', posicao.id)
     return render(request, 'vincula.html', {'form': form, 'posicao': posicao, 'materiais': materiais})
+
+@login_required
+def remove_vinculo(request, id):
+    try:
+        vinculo = VinculaPosicao.objects.get(id=id)
+        id = vinculo.posicao.id
+    except:
+        return HttpResponse('Vínculo não encontrado!')
+    if request.method == 'POST':
+        try:
+            vinculo.delete()
+        except:
+            return HttpResponse('Houve algum erro interno!')
+        return redirect('vincula_material', id )
+    return render(request, 'del_posicao_confirmacao.html', {'vinculo': vinculo})

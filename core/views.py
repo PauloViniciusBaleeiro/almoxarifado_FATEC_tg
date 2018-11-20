@@ -40,13 +40,20 @@ def atualiza_fabricante(request, id):
         return redirect('list_fabricantes')
     return render(request, 'novo_fabricante.html', {'form': form})
 
+
 @login_required
 def deletar_fabricante(request, id):
-    fabricante = get_object_or_404(Fabricante, pk=id)
+    try:
+        fabricante = Fabricante.objects.get(id=id)
+    except:
+        return HttpResponse('fabricante não encontrado!')
     if request.method == 'POST':
-        fabricante.delete()
+        try:
+            fabricante.delete()
+        except:
+            return HttpResponse('Há materiais vinculados a este fabricante')
         return redirect('list_fabricantes')
-    return render(request, 'del_fab_confirma.html', {'fabricante': fabricante})
+    return render(request, 'del_fab_confirmacao.html', {'fabricante': fabricante})
 
 
 @login_required
@@ -67,12 +74,22 @@ def cadastra_contato(request, id):
         return redirect('contato', fabricante.id)
     return render(request, 'novo_contato.html', {'form': form, 'fabricante':fabricante, 'contatos':contatos})
 
+
 @login_required
-def deleta_contato(request, id):
-    contato = Contato.objects.get(id=id)
-    fabricante_id = contato.fabricante.id
-    contato.delete()
-    return redirect('contato', fabricante_id)
+def remove_contato(request, id):
+    try:
+        contato = Contato.objects.get(id=id)
+        id = contato.fabricante.id
+    except:
+        return HttpResponse('Vínculo não encontrado!')
+    if request.method == 'POST':
+        try:
+            contato.delete()
+        except:
+            return HttpResponse('Houve algum erro interno!')
+        return redirect('contato', id )
+    return render(request, 'del_contato_confirmacao.html', {'contato': contato})
+
 
 @login_required
 def cadastra_cidade(request):
@@ -81,6 +98,7 @@ def cadastra_cidade(request):
         form.save()
         return redirect('home')
     return render(request, 'nova_cidade.html', {'form': form})
+
 
 @login_required
 def cadastra_estado(request):
