@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Deleta_posição</title>
+</head>
+<body>
+    <h1>Tem certeza que deseja deletar {{ posicao }} ?</h1>
+<form  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <button type="submit">Delete</button>
+</form>
+</body>
+</html>
