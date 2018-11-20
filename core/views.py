@@ -60,7 +60,10 @@ def cadastra_contato(request, id):
     if form.is_valid():
         formulario = form.save()
         formulario.fabricante = fabricante
-        formulario.save()
+        try:
+            formulario.save()
+        except:
+            return HttpResponse('Não é permitido repetir os dados, favor verificar!')
         return redirect('contato', fabricante.id)
     return render(request, 'novo_contato.html', {'form': form, 'fabricante':fabricante, 'contatos':contatos})
 
