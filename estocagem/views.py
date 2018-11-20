@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import PosiçãodeEstocagem
+from .models import PosiçãodeEstocagem, VinculaPosicao
 from .forms import PosicaoForm, VinculaMaterialForm
-from core.models import Material
 
 @login_required
 def list_posicoes(request):
@@ -24,20 +23,18 @@ def cadastra_posicao(request):
 
 @login_required
 def vincula_material(request, id):
-    posicao = PosiçãodeEstocagem.objects.get(id=id)
+    try:
+        posicao = PosiçãodeEstocagem.objects.get(id=id)
+        materiais = VinculaPosicao.objects.filter(posicao__id=id)
+    except:
+        return HttpResponse('Posição não encontrada!')
     form = VinculaMaterialForm(request.POST or None, request.FILES or None)
-    materiais = Material.objects.all()
     if form.is_valid():
-        material = form.cleaned_data['material']
-        mat_object = Material.objects.get(nome=material)
-        posicao.material = mat_object
-        posicao.save()
-        form.save()
-    list_material = []
-    for material in materiais:
+        formulario = form.save()
+        formulario.posicao = posicao
         try:
-            item = PosiçãodeEstocagem.objects.get(id=id, material=material.id)
-            list_material.append(item)
+            formulario.save()
         except:
-            pass
-    return render(request, 'vincula.html', {'form': form, 'posicao': posicao, 'list_material': list_material})
+            return HttpResponse('Item já alocado!')
+        return redirect('vincula_material', posicao.id)
+    return render(request, 'vincula.html', {'form': form, 'posicao': posicao, 'materiais': materiais})
