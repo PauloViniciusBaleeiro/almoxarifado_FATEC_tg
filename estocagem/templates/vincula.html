@@ -9,35 +9,28 @@
 <br>
 <h1> Vincular materiais ao endereco {{ posicao.endereço_setor }}</h1>
 <br>
-{% if list_material %}
-{% for item in list_material %}
+{% if materiais %}
+{% for material in materiais %}
 <ul>
   <li>
-    <p>Código: {{ item.material.id }}</p>
-    <p>Nome: {{ item.material.nome }}</p>
-    <p>Unidade: {{ item.material.unidade }}</p>
-    <p>Tipo: {{ item.material.tipo_de_material }}</p>
+    <p>Código: {{ material.material.id}}</p>
+    <p>Nome: {{ material.material.nome }}</p>
+    <p>Unidade: {{ material.material.unidade }}</p>
+    <p>Tipo: {{ material.material.tipo_de_material }}</p>
     <a href="#">Remover</a>
     <br><br>
-  </li>
-  <li>
-    <form  method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit"> Adicionar </button>
-    </form>
   </li>
 </ul>
 <br>
 {% endfor %}
 <br>
-{% else %}
+{% endif %}
 <form  method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
         <button type="submit"> Adicionar </button>
 </form>
-{% endif %}
+
 <a href="{% url 'list_posicoes' %}">Voltar</a>
 </body>
 </html>
