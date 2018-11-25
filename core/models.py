@@ -58,7 +58,7 @@ class Material(models.Model):
     nome = models.CharField(max_length=50)
     descricao = models.CharField(max_length=300, verbose_name='descrição', null=True)
     unidade = models.CharField(max_length=4)
-    quantidade = models.FloatField()
+    quantidade = models.FloatField(blank=True, null=True)
     tipo_de_material= models.ForeignKey(TipodeMaterial, on_delete=models.CASCADE, verbose_name='tipo do material')
 
     class Meta:
