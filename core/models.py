@@ -60,7 +60,6 @@ class Material(models.Model):
     unidade = models.CharField(max_length=4)
     quantidade = models.FloatField()
     tipo_de_material= models.ForeignKey(TipodeMaterial, on_delete=models.CASCADE, verbose_name='tipo do material')
-    fabricante = models.ForeignKey(Fabricante, on_delete=models.PROTECT, blank=True, null=True)
 
     class Meta:
         verbose_name = 'material'
@@ -70,4 +69,15 @@ class Material(models.Model):
         return self.nome
 
 
+class EntradaDeMaterial(models.Model):
+    material = models.ForeignKey(Material, on_delete=models.PROTECT)
+    lote = models.CharField(max_length=30)
+    nota_fiscal = models.PositiveIntegerField(blank=True, null=True, verbose_name='Nota Fiscal')
+    data_de_fabricacao = models.DateField(blank=True, null=True, verbose_name='Data de Fabricação')
+    data_de_validade = models.DateField(blank=True, null=True, verbose_name='Data de Validade')
+    fabricante = models.ForeignKey(Fabricante, on_delete=models.PROTECT, blank=True, null=True)
 
+    class Meta:
+        verbose_name = 'entrada de material'
+        verbose_name_plural = 'entrada de materiais'
+        unique_together = ['material', 'lote']
