@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (home, logout, listagem_fabricante as list, novo_fabricante as novo, deletar_fabricante as delete, cadastra_cidade,
                     cadastra_estado, cadastra_contato, atualiza_fabricante, remove_contato, lista_material as list_m,
-                    cadastra_material, cadastra_tipo_de_material as cad_tipo_mat, altera_material)
+                    cadastra_material, cadastra_tipo_de_material as cad_tipo_mat, altera_material, entrada_de_material)
 
 urlpatterns = [
     path('', home, name='home'),
@@ -18,5 +18,6 @@ urlpatterns = [
     path('materiais/novo', cadastra_material, name='novo_material'),
     path('material/alterar/<int:id>', altera_material, name='altera_material'),
     # path('material/deletar/<int:id>', ),
-    path('materiais/tipo/novo', cad_tipo_mat, name='novo_tipo_material')
+    path('materiais/tipo/novo', cad_tipo_mat, name='novo_tipo_material'),
+    path('material/entrada/', entrada_de_material, name='entrada_de_material')
 ]
