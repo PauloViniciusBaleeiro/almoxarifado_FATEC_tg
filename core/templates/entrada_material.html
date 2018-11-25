@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Entrada de Materiais</title>
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+<a href="{% url 'home' %}"> <h4>Home </h4></a>
+<form  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit"> Salvar </button>
+</form>
+<br>
+<a href="{% url 'lista_material' %}">Voltar à listagem</a>
+</body>
+</html>
