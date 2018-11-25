@@ -1,3 +1,4 @@
+from django import forms
 from django.forms import ModelForm
 from .models import Fabricante, Cidade, Estado, Contato, Material, TipodeMaterial, EntradaDeMaterial
 
@@ -39,6 +40,17 @@ class TipodeMaterialForm(ModelForm):
 
 
 class EntradaMaterialForm(ModelForm):
+    quantidade = forms.FloatField(label='quantidade')
+
     class Meta:
         model = EntradaDeMaterial
-        fields = ['material', 'lote', 'nota_fiscal', 'data_de_fabricacao', 'data_de_validade', 'fabricante']
+        fields = ['material', 'lote', 'nota_fiscal', 'data_de_fabricacao', 'data_de_validade', 'fabricante',
+                  'quantidade']
+
+    def save(self):
+        material = self.Meta.model.material
+        mat = Material.objects.get(material)
+        qtd = mat.quantidade
+        qtd = qtd + self.quantidade
+        mat.quantidade = qtd
+        mat.save()
