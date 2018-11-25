@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from .forms import (FabricanteForms, CidadeForm, EstadoForms, ContatoForm, MaterialForm, TipodeMaterialForm)
+from .forms import (FabricanteForms, CidadeForm, EstadoForms, ContatoForm, MaterialForm, TipodeMaterialForm,
+                    EntradaMaterialForm)
 from .models import Fabricante, Contato, Material
 
 
@@ -140,3 +141,14 @@ def altera_material(request, id):
         return redirect('lista_material')
     return render(request, 'novo_material.html', {'form': form})
 
+
+@login_required
+def entrada_de_material(request):
+    form = EntradaMaterialForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        qtd = form.quantidade
+        mat = form.material
+        print(mat, type(qtd), qtd)
+        form.save()
+        return redirect('lista_material')
+    return render(request, 'entrada_material.html', {'form': form})
