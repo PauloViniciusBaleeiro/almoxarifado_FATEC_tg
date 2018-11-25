@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Fabricante, Cidade, Estado, Contato, Material, TipodeMaterial
+from .models import Fabricante, Cidade, Estado, Contato, Material, TipodeMaterial, EntradaDeMaterial
 
 
 class FabricanteForms(ModelForm):
@@ -29,10 +29,16 @@ class ContatoForm(ModelForm):
 class MaterialForm(ModelForm):
     class Meta:
         model = Material
-        fields = ['nome', 'descricao', 'unidade', 'quantidade', 'tipo_de_material', 'fabricante']
+        exclude = ['quantidade']
 
 
 class TipodeMaterialForm(ModelForm):
     class Meta:
         model = TipodeMaterial
         fields = ['descricao']
+
+
+class EntradaMaterialForm(ModelForm):
+    class Meta:
+        model = EntradaDeMaterial
+        fields = ['material', 'lote', 'nota_fiscal', 'data_de_fabricacao', 'data_de_validade', 'fabricante']
