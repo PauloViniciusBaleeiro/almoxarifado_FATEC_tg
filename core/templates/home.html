@@ -1,26 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Login</title>
-</head>
-<body>
-<h1>Seja bem vindo!</h1>
-    {% if user.is_authenticated %}
-    <p>Olá {{user.username}}</p>
-    <a href="{% url 'logout' %}">Sair</a>
-    {% else %}
-      <a href="{% url 'login' %}">Login</a>
-    {% endif %}
-<br>
-<ul>
-  <h4> Menu </h4>
-  <li><a href="{% url 'list_fabricantes' %}">Fabricantes</a></li>
-  <li><a href="{% url 'lista_material' %}">Materiais</a></li>
-  <li><a href="{% url 'list_posicoes' %}">Posições de Armazenagens</a></li>
-</ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block main %}
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1>Seja bem vindo!</h1>
+        {% if user.is_authenticated %}
+          <p>Olá {{user.username}}</p>
+          <a href="{% url 'logout' %}">Sair</a>
+          <br>
+          <ul>
+            <h4> Menu </h4>
+            <li><a href="{% url 'list_fabricantes' %}">Fabricantes</a></li>
+            <li><a href="{% url 'lista_material' %}">Materiais</a></li>
+            <li><a href="{% url 'list_posicoes' %}">Posições de Armazenagens</a></li>
+          </ul>
+        {% else %}
+          <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  </div>
+{% endblock %}
