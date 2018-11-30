@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AlmoxData</title>
+  <link href="../../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- MetisMenu CSS -->
+  <link href="../../static/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="../../static/dist/css/sb-admin-2.css" rel="stylesheet">
+  <!-- Custom Fonts -->
+  <link href="../../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+{% if user.is_authenticated %}
+<div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> Perfil do Usuário</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-gear fa-fw"></i> Configurações</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{% url 'login' %}"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a id="linkMenuPrincipal" href="#"><i class="fa fa-home fa-fw"></i> Início</a>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-clipboard fa-fw"></i> Requisições<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse in">
+                                <li>
+                                    <a id="linkMenuRequisitarMaterial" href="#">Requisitar Material</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuRequisicaoExtra" href="#">Requisição Extra</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuLocalizarRequisicao" href="#">Localizar Requisição</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuEntradaMaterialEstoque" href="#">Entrada de Material em Estoque</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuDecrementoDescarte" href="#">Decremento por Descarte</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuCadastroFabricante" href={% url 'list_fabricantes' %}>Cadastro de Fabricante</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuCadastroMaterial" href="#">Cadastro de Material</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuCadastroUsuario" href="#">Cadastro de Usuario</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuConsultaFabricante" href="#">Consulta de Fabricante</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuDecrementoEstoque" href="#">Decremento de Estoque</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuDevolverMaterial" href="#">Devolver Material</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuEditarFabricante" href="#">Editar Fabricante</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuGerarEtiqueta" href="#">Gerar Etiqueta</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuInventario" href="#">Inventario</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuLancarContagem" href="#">Lançar Contagem</a>
+                                </li>
+                                <li>
+                                    <a id="linkMenuPosicaoEstocagem" href="#">Posição Estocagem</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+</div>
+{% endif %}
+{% block main %}
+   {% endblock %}
+    {% if user.is_authenticated %}
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/dist/js/sb-admin-2.js"></script>
+    <script src="../static/js/menus.js"></script>
+    <script src="../static/vendor/metisMenu/metisMenu.min.js"></script>
+    {% endif %}
+</body>
+</html>
