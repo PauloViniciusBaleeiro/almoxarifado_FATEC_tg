@@ -18,8 +18,8 @@ urlpatterns = [
     path('estados/novo/', cadastra_estado, name='novo_estado'),
     path('materiais/', list_m, name='lista_material'),
     path('materiais/novo', cadastra_material, name='novo_material'),
-    path('material/alterar/<int:id>', altera_material, name='altera_material'),
+    path('materiais/alterar/<int:id>', altera_material, name='altera_material'),
     # path('material/deletar/<int:id>', ),
     path('materiais/tipo/novo', cad_tipo_mat, name='novo_tipo_material'),
-    path('material/entrada/', entrada_de_material, name='entrada_de_material')
+    path('materiais/entrada/', entrada_de_material, name='entrada_de_material')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
