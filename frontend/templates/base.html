@@ -92,13 +92,13 @@
                   <a href="#"><i class="fa fa-clipboard fa-fw"></i> Cadastros<span class="fa arrow"></span></a>
                   <ul class="nav nav-second-level collapse in">
                       <li>
-                        <a id="linkMenuEditarFabricante" href="#">Editar Fabricante</a>
+                        <a id="linkMenuEditarFabricante" href="{% url 'list_fabricantes' %}">Editar Fabricante</a>
                       </li>
                       <li>
-                        <a id="linkMenuCadastroFabricante" href={% url 'list_fabricantes' %}>Cadastro de Fabricante</a>
+                        <a id="linkMenuCadastroFabricante" href={% url 'novo_fabricante' %}>Cadastro de Fabricante</a>
                       </li>
                       <li>
-                        <a id="linkMenuCadastroMaterial" href="#">Cadastro de Material</a>
+                        <a id="linkMenuCadastroMaterial" href="{% url 'novo_material' %}">Cadastro de Material</a>
                       </li>
                       <li>
                         <a id="linkMenuCadastroUsuario" href="#">Cadastro de Usuario</a>
