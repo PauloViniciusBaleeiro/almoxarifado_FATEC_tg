@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <a href="{% url 'home' %}"> <h4>Home </h4></a>
+        <form  method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form_info }}
+          <br>
+          <form  method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form_item }}
+            <button type="submit" class="btn btn-info"> Adicionar </button>
+          </form>
+         <a class="btn btn-primary" href="{% url 'home' %}" role="button">Requisitar</a>
+        </form>
+        <br>
+        {% if info %}
+          {% for material in material_list %}
+            <ul>
+              <li> id: {{ material.material.id }}</li>
+              <li> nome: {{ material.material.nome }}</li>
+              <li> unidade: {{ material.material.unidade }}</li>
+              <li> quantidade: {{ material.quantidade }}</li>
+            </ul>
+            <br>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
