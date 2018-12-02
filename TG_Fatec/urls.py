@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from core import urls as core_urls
 from estocagem import urls as posicao_urls
+from movimento import urls as movimento_urls
 from django.contrib.auth import urls as auth_urls
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(core_urls)),
+    path('', include(movimento_urls)),
     path('users/', include(auth_urls)),
     path('', include(posicao_urls))
 
