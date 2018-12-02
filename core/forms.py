@@ -47,10 +47,10 @@ class EntradaMaterialForm(ModelForm):
         fields = ['material', 'lote', 'nota_fiscal', 'data_de_fabricacao', 'data_de_validade', 'fabricante',
                   'quantidade']
 
-    def save(self):
-        material = self.Meta.model.material
-        mat = Material.objects.get(material)
-        qtd = mat.quantidade
-        qtd = qtd + self.quantidade
-        mat.quantidade = qtd
-        mat.save()
+    # def save(self):
+    #     material = self.Meta.model.material
+    #     mat = Material.objects.get(material)
+    #     qtd = mat.quantidade
+    #     qtd = qtd + self.quantidade
+    #     mat.quantidade = qtd
+    #     mat.save()
