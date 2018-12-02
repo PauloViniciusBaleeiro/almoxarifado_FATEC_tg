@@ -69,11 +69,17 @@ class Requisicao(models.Model):
 
 
 class RequisicaoMaterial(models.Model):
+    CHOICES = (
+        ('1', 'Desjejum'),
+        ('2', 'Almoço'),
+        ('3', "Café da tarde"),
+        ('4', 'Jantar'),
+        ('5', 'Lanche noturno')
+    )
     requisicao = models.ForeignKey(Requisicao, on_delete=models.PROTECT)
     material = models.ForeignKey(Material, on_delete=models.PROTECT)
-    serviço = models.CharField(max_length=10, help_text='almoço, jantar, desejum...')
-    quantidade = models.FloatField(default=0)
-
+    serviço = models.CharField(max_length=30, choices=CHOICES, help_text='almoço, jantar, desejum...')
+    quantidade = models.FloatField(default=0, null=False, blank=False)
 
     class Meta:
         verbose_name_plural = 'requisições - materiais'
