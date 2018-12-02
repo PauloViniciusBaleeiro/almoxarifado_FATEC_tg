@@ -146,9 +146,10 @@ def altera_material(request, id):
 def entrada_de_material(request):
     form = EntradaMaterialForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        qtd = form.quantidade
-        mat = form.material
-        print(mat, type(qtd), qtd)
-        form.save()
+        qtd = form.cleaned_data['quantidade']
+        formulario = form.save(commit=False)
+        formulario.material.quantidade += qtd
+        formulario.material.save()
+        formulario.save()
         return redirect('lista_material')
     return render(request, 'entrada_material.html', {'form': form})
