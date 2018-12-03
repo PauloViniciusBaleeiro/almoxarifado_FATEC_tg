@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NULL</title>
+</head>
+<body>
+{% for req in requisicoes %}
+<ul>
+<li>
+  {{ req.id }}
+</li>
+<li>
+  {{ req.data }}
+</li>
+<li>
+  {{ req.situação }}
+</li>
+</ul>
+
+{% endfor %}
+
+</body>
+</html>
