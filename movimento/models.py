@@ -31,7 +31,7 @@ class MovimentoMaterial(models.Model):
         unique_together = ['movimento', 'material']
 
 
-class Devolução(models.Model):
+class Devolucao(models.Model):
     data = models.DateField(auto_now=True)
     usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
@@ -41,8 +41,8 @@ class Devolução(models.Model):
         verbose_name_plural = "Devoluções"
 
 
-class ItemDevoucao(models.Model):
-    devolução = models.ForeignKey(Devolução, on_delete=models.PROTECT)
+class ItemDevolucao(models.Model):
+    devolução = models.ForeignKey(Devolucao, on_delete=models.PROTECT)
     material = models.ForeignKey(Material, on_delete=models.PROTECT)
     motivo = models.CharField(max_length=30)
     quantidade = models.FloatField(default=0)
