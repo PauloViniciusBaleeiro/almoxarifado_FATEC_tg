@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from core.models import Material
-from .models import RequisicaoMaterial, Requisicao, Devolucao, ItemDevolucao
-from .forms import RequisiçãoItensForm, RequisiçãoInfoForm, DevolucaoForm, DevolucaoItemForm
+from .models import RequisicaoMaterial, Requisicao, Devolucao, ItemDevolucao, Movimento, MovimentoMaterial
+from .forms import RequisiçãoItensForm, RequisiçãoInfoForm, DevolucaoForm, DevolucaoItemForm, MovimentoItemForm
 
 
 @login_required
@@ -123,4 +123,16 @@ def devolve_material(request, **kwargs):
 
 @login_required
 def descarte(request):
-    pass
+    form = MovimentoItemForm(request.POST or None)
+    movimento = Movimento.objects.create(usuário=request.user)
+
+    if form.is_valid():
+        quantidade = form.cleaned_data['quatidade']
+        item = form.save(commit=False)
+        item.movimento = movimento
+        item.material.quantidade -= quantidade
+        item.material.save()
+        item.save()
+        return redirect('descarte')
+
+    return render(request, 'descarte.html', {'form':form})

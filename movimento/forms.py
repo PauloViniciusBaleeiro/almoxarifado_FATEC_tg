@@ -31,6 +31,7 @@ class DevolucaoItemForm(ModelForm):
 class MovimentoForm(ModelForm):
     class Meta:
         model = Movimento
+        fields =['usuário']
 
 
 class MovimentoItemForm(ModelForm):
