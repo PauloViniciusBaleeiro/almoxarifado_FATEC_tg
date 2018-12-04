@@ -22,7 +22,7 @@
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        Olá, {{ user.first_name }}   <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
@@ -33,7 +33,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="{% url 'login' %}"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                            <a href="{% url 'logout' %}"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -52,7 +52,7 @@
                   <a href="#"><i class="fa fa-clipboard fa-fw"></i> Movimentações<span class="fa arrow"></span></a>
                   <ul class="nav nav-second-level collapse in">
                     <li>
-                      <a id="linkMenuRequisitarMaterial" href="#">Requisitar Material</a>
+                      <a id="linkMenuRequisitarMaterial" href="{% url 'requisicao' %}">Requisitar Material</a>
                     </li>
                     <li>
                       <a id="linkMenuRequisicaoExtra" href="#">Requisição Extra</a>
@@ -61,10 +61,10 @@
                       <a id="linkMenuLocalizarRequisicao" href="#">Localizar Requisição</a>
                     </li>
                     <li>
-                      <a id="linkMenuEntradaMaterialEstoque" href="#">Entrada de Material em Estoque</a>
+                      <a id="linkMenuEntradaMaterialEstoque" href="{% url 'entrada_de_material' %}">Entrada de Material em Estoque</a>
                     </li>
                     <li>
-                      <a id="linkMenuDecrementoDescarte" href="#">Decremento por Descarte</a>
+                      <a id="linkMenuDecrementoDescarte" href="{% url 'descarte' %}">Decremento por Descarte</a>
                     </li>
 
                     <li>
@@ -104,7 +104,7 @@
                         <a id="linkMenuCadastroUsuario" href="#">Cadastro de Usuario</a>
                       </li>
                       <li>
-                        <a id="linkMenuConsultaFabricante" href="#">Consulta de Fabricante</a>
+                        <a id="linkMenuConsultaFabricante" href="{% url 'list_fabricantes' %}">Consulta de Fabricante</a>
                       </li>
                   </ul>
                 </li>
