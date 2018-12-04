@@ -124,9 +124,9 @@ def devolve_material(request, **kwargs):
 @login_required
 def descarte(request):
     form = MovimentoItemForm(request.POST or None)
-    movimento = Movimento.objects.create(usuário=request.user)
 
     if form.is_valid():
+        movimento = Movimento.objects.create(usuário=request.user, tipo_de_movimento='perda')
         quantidade = form.cleaned_data['quatidade']
         item = form.save(commit=False)
         item.movimento = movimento
