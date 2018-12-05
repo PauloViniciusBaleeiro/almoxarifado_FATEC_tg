@@ -34,12 +34,12 @@ def requisita_material(request, **kwargs):
                     except:
                         return HttpResponse('Item já adicionado, não é permitido adicionar outro')
 
-                # if item:
-                #     requisição.save()
-                #     return redirect('requisicao')
-                # else:
-                #     return HttpResponse('Requisição não contém materiais')
-                # return redirect('home')
+                if item:
+                    requisição.save()
+                    return redirect('requisicao')
+                else:
+                    return HttpResponse('Requisição não contém materiais')
+                return redirect('home')
     else:
         if form_info.is_valid():
             info = True
@@ -49,7 +49,7 @@ def requisita_material(request, **kwargs):
                 material.requisicao = requisição
                 material.save()
                 item = True
-                return redirect('requisicao', requisição.id)
+                return redirect('requisita_new', requisição.id)
     if kwargs:
         material_list = RequisicaoMaterial.objects.filter(requisicao=id)
         info = True
@@ -96,12 +96,12 @@ def devolve_material(request, **kwargs):
                     except:
                         return HttpResponse('Item já adicionado, não é permitido adicionar outro')
 
-                # if item:
-                #     requisição.save()
-                #     return redirect('requisicao')
-                # else:
-                #     return HttpResponse('Requisição não contém materiais')
-                # return redirect('home')
+                if item:
+                    requisição.save()
+                    return redirect('requisicao')
+                else:
+                    return HttpResponse('Requisição não contém materiais')
+                return redirect('home')
     else:
         if form_devolucao.is_valid():
             dev = True
@@ -136,3 +136,6 @@ def descarte(request):
         return redirect('descarte')
 
     return render(request, 'descarte.html', {'form':form})
+
+# @login_required
+# def
