@@ -10,7 +10,7 @@
     {% for posicao in posicoes %}
       <ul>
       <li>
-        <a href="#">{{ posicao }}</a>
+        <a href="{% url 'vincula_material' posicao.id %}">{{ posicao }}</a>
         <a href="{% url 'remover_posicao' posicao.id %}">deletar</a>
       </li>
     </ul>
