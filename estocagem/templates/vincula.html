@@ -1,36 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Vincula</title>
-</head>
-<body>
-<a href="{% url 'home' %}"> <h4>Home </h4></a>
-<br>
-<h1> Vincular materiais ao endereco {{ posicao.endereço_setor }}</h1>
-<br>
-{% if materiais %}
-{% for material in materiais %}
-<ul>
-  <li>
-    <p>Código: {{ material.material.id}}</p>
-    <p>Nome: {{ material.material.nome }}</p>
-    <p>Unidade: {{ material.material.unidade }}</p>
-    <p>Tipo: {{ material.material.tipo_de_material }}</p>
-    <a href="{% url 'remove_vinculo' material.id %}">Remover</a>
-    <br><br>
-  </li>
-</ul>
-<br>
-{% endfor %}
-<br>
-{% endif %}
-<form  method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit"> Adicionar </button>
-</form>
+{% extends 'base.html' %}
+{% block main %}
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <a href="{% url 'home' %}"> <h4>Home </h4></a>
+        <br>
+        <h1> Vincular materiais ao endereco {{ posicao.endereço_setor }}</h1>
+        <br>
+        {% if materiais %}
+          {% for material in materiais %}
+            <ul>
+              <li>
+                <p>Código: {{ material.material.id}}</p>
+                <p>Nome: {{ material.material.nome }}</p>
+                <p>Unidade: {{ material.material.unidade }}</p>
+                <p>Tipo: {{ material.material.tipo_de_material }}</p>
+                <a href="{% url 'remove_vinculo' material.id %}">Remover</a>
+                <br><br>
+              </li>
+            </ul>
+            <br>
+          {% endfor %}
+          <br>
+        {% endif %}
+        <form  method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form }}
+          <button type="submit"> Adicionar </button>
+        </form>
 
-<a href="{% url 'list_posicoes' %}">Voltar</a>
-</body>
-</html>
+        <a href="{% url 'list_posicoes' %}">Voltar</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

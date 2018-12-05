@@ -1,24 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>NULL</title>
-</head>
-<body>
-{% for req in requisicoes %}
-<ul>
-<li>
-  {{ req.id }}
-</li>
-<li>
-  {{ req.data }}
-</li>
-<li>
-  {{ req.situação }}
-</li>
-</ul>
+{% extends 'base.html' %}
+{% block main %}
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        {% for req in requisicoes %}
+          <ul>
+            <li>
+              {{ req.id }}
+            </li>
+            <li>
+              {{ req.data }}
+            </li>
+            <li>
+              {{ req.situação }}
+            </li>
+          </ul>
 
-{% endfor %}
-
-</body>
-</html>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

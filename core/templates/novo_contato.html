@@ -1,40 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Novo contato</title>
-</head>
-<body>
-<a href="{% url 'home' %}"> <h4>Home</h4></a>
-<h1> Contatos para {{ fabricante }}</h1>
-<br>
-{% if contatos %}
-{% for contato in contatos %}
-<ul>
-  <li>
-    <p>Telefone: {{ contato.telefone }}</p>
-    <p>E-mail: {{ contato.e_mail }}</p>
-    <a href="{% url 'remover_contato' contato.id %}">Remover</a>
-    <br><br>
-  </li>
-  <li>
-    <form  method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit"> Adicionar </button>
-    </form>
-  </li>
-</ul>
-<br>
-{% endfor %}
-<br>
-{% else %}
-<form  method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit"> Adicionar </button>
-</form>
-{% endif %}
-<a href="{% url 'list_fabricantes' %}">Voltar</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block main %}
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <a href="{% url 'home' %}"> <h4>Home</h4></a>
+        <h1> Contatos para {{ fabricante }}</h1>
+        <br>
+        {% if contatos %}
+          {% for contato in contatos %}
+            <ul>
+              <li>
+                <p>Telefone: {{ contato.telefone }}</p>
+                <p>E-mail: {{ contato.e_mail }}</p>
+                <a href="{% url 'remover_contato' contato.id %}">Remover</a>
+                <br><br>
+              </li>
+              <li>
+                <form  method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {{ form }}
+                  <button type="submit"> Adicionar </button>
+                </form>
+              </li>
+            </ul>
+            <br>
+          {% endfor %}
+          <br>
+        {% else %}
+          <form  method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit"> Adicionar </button>
+          </form>
+        {% endif %}
+        <a href="{% url 'list_fabricantes' %}">Voltar</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
