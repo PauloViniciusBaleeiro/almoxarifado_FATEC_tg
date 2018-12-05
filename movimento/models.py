@@ -12,7 +12,7 @@ class Movimento(models.Model):
     )
     data_do_movimento = models.DateField(auto_now=True, editable=False)
     usuário = models.ForeignKey(User, on_delete=models.PROTECT)
-    tipo_de_movimento = models.CharField(choices=TIPOS, max_length=10)
+    tipo_de_movimento = models.CharField(choices=TIPOS, max_length=1)
 
     class Meta:
         verbose_name = 'Movimento'
