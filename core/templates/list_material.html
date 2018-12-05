@@ -1,25 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Lista de Fabricantes</title>
-</head>
-<body>
-<a href="{% url 'home' %}"> <h4>Home </h4></a>
-{% if materiais %}
-    {% for material in materiais %}
-      <ul>
-      <li>
-        <a href="{% url 'altera_material' material.id %}">{{ material.nome }}</a>
-        <a href="#">deletar</a>
-      </li>
-    </ul>
-    {% endfor %}
-{% else %}
-<h2> Não há materiais cadastrados</h2>
-<a href="{%  url 'novo_material' %}">Clique Aqui para cadastrar um material</a>
-{% endif %}
-<br><br>
-<a href="{% url 'novo_material' %}">Novo material</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block main %}
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <a href="{% url 'home' %}"> <h4>Home </h4></a>
+        {% if materiais %}
+          {% for material in materiais %}
+            <ul>
+              <li>
+                <a href="{% url 'altera_material' material.id %}">{{ material.nome }}</a>
+                <a href="#">deletar</a>
+              </li>
+            </ul>
+          {% endfor %}
+        {% else %}
+          <h2> Não há materiais cadastrados</h2>
+          <a href="{%  url 'novo_material' %}">Clique Aqui para cadastrar um material</a>
+        {% endif %}
+        <br><br>
+        <a href="{% url 'novo_material' %}">Novo material</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
