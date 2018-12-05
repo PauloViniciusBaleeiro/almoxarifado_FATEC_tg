@@ -126,7 +126,7 @@ def descarte(request):
     form = MovimentoItemForm(request.POST or None)
 
     if form.is_valid():
-        movimento = Movimento.objects.create(usuário=request.user, tipo_de_movimento='perda')
+        movimento = Movimento.objects.create(usuário=request.user, tipo_de_movimento='P')
         quantidade = form.cleaned_data['quatidade']
         item = form.save(commit=False)
         item.movimento = movimento
@@ -137,5 +137,18 @@ def descarte(request):
 
     return render(request, 'descarte.html', {'form':form})
 
-# @login_required
-# def
+@login_required
+def decremento(request):
+    form = MovimentoItemForm(request.POST or None)
+
+    if form.is_valid():
+        movimento = Movimento.objects.create(usuário=request.user, tipo_de_movimento='S')
+        quantidade = form.cleaned_data['quatidade']
+        item = form.save(commit=False)
+        item.movimento = movimento
+        item.material.quantidade -= quantidade
+        item.material.save()
+        item.save()
+        return redirect('descarte')
+
+    return render(request, 'decremento.html', {'form': form})
