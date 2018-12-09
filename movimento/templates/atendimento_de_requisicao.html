@@ -15,7 +15,7 @@
         {% for item in requisicao_itens %}
         <ul>
         <li>
-          id: {{ ìtem.material.id }}
+          id: {{ item.material.id }}
         </li>
         <li>
           nome: {{ item.material.nome }}
@@ -24,13 +24,32 @@
            unidade: {{ item.material.unidade }}
           </li>
         <li>
-          quantidade: {{ item.material.quantidade }}
+          quantidade: {{ item.quantidade }}
         </li>
         </ul>
         {% endfor %}
-      <a href="#" class="button">Atender integralmente</a>
-      <a href="#" class="button">Atender parcialmente</a>
-      <a href="#" class="button">Checar quantidades</a>
+      {% if bad_item %}
+        {% for item in itens_menor %}
+        <div class="alert alert-danger" role="alert">
+          O item {{ item.material.nome }} não possui a quantidade solicitada em estoque!
+          Há registrado em estoque {{ item.material.quantidade }} unidade(s).
+        </div>
+        {% endfor %}
+        <a href="#" class="btn btn-warning">Atender parcialmente</a>
+      {% endif %}
+      {% if equal_item %}
+      {% for item in itens_iguais %}
+        <div class="alert alert-warning" role="alert">
+          O item {{ item.material.nome }} possui, em estoque, a mesma quantidade que foi solicitada!
+        </div>
+        {% endfor %}
+      <a href="{% url 'atende_integralmente' requisicao.id %}" class="btn btn-primary">Atender Integralmente</a>
+      <a href="#" class="btn btn-warning">Atender Parcialmente</a>
+      {% endif %}
+      {% if not bad_item and not equal_item  %}
+      <a href="{% url 'atende_integralmente' requisicao.id %}" class="btn btn-primary">Atender Integralmente</a>
+      <a href="#" class="btn btn-warning">Atender Parcialmente</a>
+      {% endif %}
       </div>
     </div>
  </div>

@@ -6,7 +6,8 @@ urlpatterns = [
     path('requisita/', requisita_material, name='requisicao'),
     path('requisita/<int:id>', requisita_material, name='requisita_new'),
     path('requisita/lista-nao', nao_atendidas, name='nao_atendidas'),
-    path('requisicao/atender/', )
+    path('requisita/detalhe/<int:id>', exibe_requisicao_atendimento, name='requisicao_detalhe'),
+    path('requisita/atende-integral/<int:id>', atende_requisição, name='atende_integralmente'),
     path('devolucao/', devolve_material, name='devolucao'),
     path('devolucao/<int:id>', devolve_material, name='devolucao'),
     path('descarte/', descarte, name='descarte'),

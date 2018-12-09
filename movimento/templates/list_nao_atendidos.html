@@ -3,8 +3,10 @@
   <div id="page-wrapper">
     <div class="row">
       <div class="col-lg-12">
+        {% if itens > 0 %}
         {% for req in requisicoes %}
           <ul>
+          <a href="{% url 'requisicao_detalhe' req.id %}">
             <li>
               id : {{ req.id }}
             </li>
@@ -14,12 +16,16 @@
             <li>
               situação : {{ req.situação }}
             </li>
-          <li>
-
-          </li>
+          </a>
           </ul>
-
         {% endfor %}
+      {% else %}
+          <br>
+          <div class="alert alert-info" role="alert">
+            Não há requisições para serem atendidas!
+          </div>
+
+      {% endif %}
       </div>
     </div>
   </div>

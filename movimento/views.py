@@ -68,28 +68,31 @@ def atende_requisição(request, id):
     except:
         resposta = "Não foram localizadas requisições ou itens, tente novamente."
         return render(request, '', {'resposta': resposta})
+    if requisicao.situação != 'F':
+        mov = Movimento.objects.create(usuário=request.user, tipo_de_movimento='S')
+        for item in requisicao_itens:
+            material = Material.objects.get(id=item.material.id)
+            material.quantidade -= item.quantidade
+            material.save()
+            mov_mat = MovimentoMaterial.objects.create(movimento=mov, material=material, quatidade=item.quantidade,
+                                                       motivo="requição")
+            mov_mat.save()
 
-
-    mov = Movimento.objects.create(usuário=request.user, tipo_de_movimento='S')
-    for item in requisicao_itens:
-        material = Material.objects.get(id=item.material.id)
-        material.quantidade -= item.quantidade
-        material.save()
-        mov_mat = MovimentoMaterial.objects.create(movimento=mov, material=material, quatidade=item.quantidade,
-                                                   motivo="requição")
-        mov_mat.save()
-
-    requisicao.situação = 'F'
-    requisicao.save()
-    return redirect('nao_atendidas')
+        requisicao.situação = 'F'
+        requisicao.save()
+        return render(request, 'requisicao_atendida_success.html', {'requisicao': requisicao,
+                                                                    'itens': requisicao_itens})
+    else:
+        return HttpResponse('Requisição já atendida!')
 
 
 
 @login_required
 def lista_requisicoes_nao_atendidas(request):
-    requisicoes = Requisicao.objects.exclude(situação__startswith='A')
+    requisicoes = Requisicao.objects.exclude(situação__startswith='F')
+    itens = len(requisicoes)
 
-    return render(request, 'list_nao_atendidos.html', {'requisicoes': requisicoes})
+    return render(request, 'list_nao_atendidos.html', {'requisicoes': requisicoes, 'itens':itens})
 
 
 @login_required
@@ -101,8 +104,39 @@ def exibe_requisicao_atendimento(request, id):
         resposta = "Não foram localizadas requisições ou itens, tente novamente."
         return render(request, '', {'resposta': resposta})
 
+    bad_item = False
+    equal_item = False
+    check_qtd = check_quantidade(id)
+    itens_menor = check_qtd[0]
+    bad_item = check_qtd[1]
+    itens_iguais = check_qtd[2]
+    equal_item = check_qtd[3]
+
     return render(request, 'atendimento_de_requisicao.html', {'requisicao': requisicao,
-                                                              'requisicao_itens': requisicao_itens})
+                                                              'requisicao_itens': requisicao_itens,
+                                                              'itens_menor': itens_menor, 'bad_item': bad_item,
+                                                              'itens_iguais': itens_iguais, 'equal_item': equal_item})
+
+
+def check_quantidade(id):
+    req_item = RequisicaoMaterial.objects.filter(requisicao=id)
+    qtd_menor = []
+    qtd_igual = []
+    bad_item = False
+    equal_item = False
+
+    for item in req_item:
+        mat = Material.objects.get(id=item.material.id)
+        if item.quantidade > mat.quantidade:
+            qtd_menor.append(item)
+            bad_item = True
+
+        if item.quantidade == mat.quantidade:
+            qtd_igual.append(item)
+            equal_item = True
+
+    return qtd_menor, bad_item, qtd_igual, equal_item
+
 
 @login_required
 def devolve_material(request, **kwargs):
