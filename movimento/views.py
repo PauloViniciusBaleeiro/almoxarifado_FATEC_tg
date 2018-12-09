@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth import logout
+from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from core.models import Material
 from .models import RequisicaoMaterial, Requisicao, Devolucao, ItemDevolucao, Movimento, MovimentoMaterial
@@ -152,3 +153,38 @@ def decremento(request):
         return redirect('descarte')
 
     return render(request, 'decremento.html', {'form': form})
+
+
+@login_required
+def localiza_requisicao(request):
+    id = request.GET.get('id', None)
+    name = request.GET.get('user', None)
+    date = request.GET.get('data', None)
+    if id:
+        try:
+            requisicao = Requisicao.objects.get(id=id)
+        except:
+            resposta = 'Não há requisições para id nº ' + id
+            return render(request, 'localiza_requisicao.html', {'resposta': resposta})
+
+        return render(request, 'localiza_requisicao.html', {'requisicao_id': requisicao})
+
+    if name:
+        requisicao = Requisicao.objects.filter(usuario__first_name=name)
+        if len(requisicao) == 0:
+            resposta = 'Não há requisições para ' + name
+            return render(request, 'localiza_requisicao.html', {'resposta': resposta})
+
+        return render(request, 'localiza_requisicao.html', {'requisicao_name': requisicao})
+
+    if date:
+        requisicao = Requisicao.objects.filter(data=date)
+        if len(requisicao) == 0:
+            date = datetime.strptime(date, '%Y-%m-%d')
+            resposta = 'Não há requisições em ' + date.strftime('%d/%m/%Y')
+            return render(request, 'localiza_requisicao.html', {'resposta': resposta})
+        return render(request, 'localiza_requisicao.html', {'requisicao_data': requisicao})
+
+    return render(request, 'localiza_requisicao.html')
+
+
