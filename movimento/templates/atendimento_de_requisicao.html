@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block main %}
+ <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <p>
+          id: {{ requisicao.id  }}
+        </p>
+        <p>
+          usuario:  {{ requisicao.usuario }}
+        </p>
+        <p>
+          data :{{ requisicao.data }}
+        </p>
+        {% for item in requisicao_itens %}
+        <ul>
+        <li>
+          id: {{ ìtem.material.id }}
+        </li>
+        <li>
+          nome: {{ item.material.nome }}
+        </li>
+          <li>
+           unidade: {{ item.material.unidade }}
+          </li>
+        <li>
+          quantidade: {{ item.material.quantidade }}
+        </li>
+        </ul>
+        {% endfor %}
+      <a href="#" class="button">Atender integralmente</a>
+      <a href="#" class="button">Atender parcialmente</a>
+      <a href="#" class="button">Checar quantidades</a>
+      </div>
+    </div>
+ </div>
+{% endblock %}

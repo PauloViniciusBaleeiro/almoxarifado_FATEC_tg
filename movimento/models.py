@@ -61,7 +61,7 @@ class Requisicao(models.Model):
     )
     data = models.DateField(auto_now=True)
     usuario = models.ForeignKey(User, on_delete=models.PROTECT)
-    situação = models.CharField(choices=SITUAÇÃO, max_length=10)
+    situação = models.CharField(choices=SITUAÇÃO, max_length=2)
 
     class Meta:
         verbose_name = 'requisição'

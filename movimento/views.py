@@ -61,11 +61,48 @@ def requisita_material(request, **kwargs):
 
 
 @login_required
+def atende_requisição(request, id):
+    try:
+        requisicao = Requisicao.objects.get(id=id)
+        requisicao_itens = RequisicaoMaterial.objects.filter(requisicao=id)
+    except:
+        resposta = "Não foram localizadas requisições ou itens, tente novamente."
+        return render(request, '', {'resposta': resposta})
+
+
+    mov = Movimento.objects.create(usuário=request.user, tipo_de_movimento='S')
+    for item in requisicao_itens:
+        material = Material.objects.get(id=item.material.id)
+        material.quantidade -= item.quantidade
+        material.save()
+        mov_mat = MovimentoMaterial.objects.create(movimento=mov, material=material, quatidade=item.quantidade,
+                                                   motivo="requição")
+        mov_mat.save()
+
+    requisicao.situação = 'F'
+    requisicao.save()
+    return redirect('nao_atendidas')
+
+
+
+@login_required
 def lista_requisicoes_nao_atendidas(request):
-    requisicoes = Requisicao.objects.exclude(situação__startswith='F')
+    requisicoes = Requisicao.objects.exclude(situação__startswith='A')
 
     return render(request, 'list_nao_atendidos.html', {'requisicoes': requisicoes})
 
+
+@login_required
+def exibe_requisicao_atendimento(request, id):
+    try:
+        requisicao = Requisicao.objects.get(id=id)
+        requisicao_itens = RequisicaoMaterial.objects.filter(requisicao=id)
+    except:
+        resposta = "Não foram localizadas requisições ou itens, tente novamente."
+        return render(request, '', {'resposta': resposta})
+
+    return render(request, 'atendimento_de_requisicao.html', {'requisicao': requisicao,
+                                                              'requisicao_itens': requisicao_itens})
 
 @login_required
 def devolve_material(request, **kwargs):
@@ -89,8 +126,6 @@ def devolve_material(request, **kwargs):
                     devolucao.save()
                     try:
                         material.devolução = devolucao
-                        print(material.devolução)
-                        print(devolucao)
                         material.save()
                         item = True
                         return redirect('devolucao', devolucao.id)
@@ -98,7 +133,7 @@ def devolve_material(request, **kwargs):
                         return HttpResponse('Item já adicionado, não é permitido adicionar outro')
 
                 if item:
-                    requisição.save()
+                    devolucao.save()
                     return redirect('requisicao')
                 else:
                     return HttpResponse('Requisição não contém materiais')
@@ -186,5 +221,6 @@ def localiza_requisicao(request):
         return render(request, 'localiza_requisicao.html', {'requisicao_data': requisicao})
 
     return render(request, 'localiza_requisicao.html')
+
 
 
