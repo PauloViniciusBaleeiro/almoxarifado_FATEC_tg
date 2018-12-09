@@ -13,7 +13,8 @@ def requisita_material(request, **kwargs):
     form_info = RequisiçãoInfoForm(request.POST or None)
     info = False
     item = False
-    requisição = form_info.save(commit=False)
+    if form_item.is_valid():
+        requisição = form_info.save(commit=False)
 
     if kwargs:
         id = kwargs['id']
@@ -31,7 +32,8 @@ def requisita_material(request, **kwargs):
                         material.requisicao = requisição
                         material.save()
                         item = True
-                        return redirect('requisicao', requisição.id)
+                        if request.GET['adicionar']:
+                            return redirect('requisicao', requisição.id)
                     except:
                         return HttpResponse('Item já adicionado, não é permitido adicionar outro')
 
@@ -50,7 +52,7 @@ def requisita_material(request, **kwargs):
                 material.requisicao = requisição
                 material.save()
                 item = True
-                return redirect('requisita_new', requisição.id)
+                return redirect('requisita_new', requisição.id )
     if kwargs:
         material_list = RequisicaoMaterial.objects.filter(requisicao=id)
         info = True

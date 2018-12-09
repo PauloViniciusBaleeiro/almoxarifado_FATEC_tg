@@ -44,11 +44,11 @@
         </div>
         {% endfor %}
       <a href="{% url 'atende_integralmente' requisicao.id %}" class="btn btn-primary">Atender Integralmente</a>
-      <a href="#" class="btn btn-warning">Atender Parcialmente</a>
+      <a href="{% url 'requisita_new' requisicao.id %}" class="btn btn-warning">Atender Parcialmente</a>
       {% endif %}
       {% if not bad_item and not equal_item  %}
       <a href="{% url 'atende_integralmente' requisicao.id %}" class="btn btn-primary">Atender Integralmente</a>
-      <a href="#" class="btn btn-warning">Atender Parcialmente</a>
+      <a href="{% url 'requisita_new' requisicao.id %}" class="btn btn-warning">Atender Parcialmente</a>
       {% endif %}
       </div>
     </div>
