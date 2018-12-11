@@ -5,7 +5,7 @@ from .models import ItemIventario, Inventario
 class InventarioForm(ModelForm):
     class Meta:
         model = Inventario
-        fields = ['user']
+        fields = '__all__'
 
 
 class ItemInventarioForm(ModelForm):
