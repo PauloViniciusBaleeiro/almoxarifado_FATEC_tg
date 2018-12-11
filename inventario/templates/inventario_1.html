@@ -57,15 +57,14 @@
                   <div class="panel-body"
                   < class="row">
                   <div class="six columns">
-                    <form>
+                    <form >
                       <label> Busca por data:</label>
                       <select class="form-control" id="escolha">
                         {% for tipo in tipos %}
-                          <option>{{ tipo }}</option>
-                        {% endfor %}
+                          <option value="{{ tipo }}" id="{{ tipo }}">{{ tipo }}</option>
+{% endfor %}
                       </select>
-<button type="submit" class="button" >Buscar</button>
-
+<a href="{% url 'inventario_2' inventario.id  "Descartável" %}" class="button" >Buscar</a>
                     </form>
                   </div>
 

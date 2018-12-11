@@ -21,7 +21,7 @@ class ItemIventario(models.Model):
     )
     inventario = models.ForeignKey(Inventario, on_delete=models.CASCADE)
     material = models.ForeignKey(Material, on_delete=models.PROTECT)
-    quantidade = models.DecimalField(max_digits=10, decimal_places=3, blank=True)
+    quantidade = models.DecimalField(max_digits=10, decimal_places=3, blank=True, null=True)
     contagem = models.PositiveIntegerField(choices=CHOICES, null=True, blank=True)
 
     class Meta:

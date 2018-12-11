@@ -18,7 +18,6 @@ def criar_inventario(request):
     if form.is_valid():
         inventario = form.save()
         inventario.save()
-        print(type(inventario))
         return redirect('inventario_1', inventario.id)
 
     return render(request, 'inventario.html', {'form':form})
@@ -29,23 +28,32 @@ def escolha(request, id):
     inventario = Inventario.objects.get(id=id)
     tipos = TipodeMaterial.objects.all()
 
-    escolha = request.GET.get('escolha', None)
-
-    if escolha:
-        print('passou aqui')
-        materiais = Material.objects.filter(tipo_de_material__descricao=escolha)
-        for mat in materiais:
-            item_inventario = ItemIventario.objects.create(inventario=inventario, material=mat)
-        materials = ItemIventario.objects.filter(inventario=inventario)
-        return render(request, 'inventario_2.html', {'inventario': inventario, 'escolha':escolha,
-                                                     'materials': materials})
+    # escolha = request.GET.get('escolha', None)
+    #
+    # if escolha:
+    #     print('passou aqui')
+    #     materiais = Material.objects.filter(tipo_de_material__descricao=escolha)
+    #     for mat in materiais:
+    #         item_inventario = ItemIventario.objects.create(inventario=inventario, material=mat)
+    #     materials = ItemIventario.objects.filter(inventario=inventario)
+    #     return render(request, 'inventario_2.html', {'inventario': inventario, 'escolha':escolha,
+    #                                                  'materials': materials})
     return render(request, 'inventario_1.html', {'inventario': inventario, 'tipos':tipos})
 
-# @login_required
-# def inventario_lista(request, id):
-#
 
+@login_required
+def inventario_lista(request, id, escolha):
+    inventario = Inventario.objects.get(id=id)
 
+    materiais = Material.objects.filter(tipo_de_material__descricao=escolha)
+
+    for mat in materiais:
+        itens_inventario = ItemIventario.objects.create(inventario=inventario, material=mat)
+
+    materials = ItemIventario.objects.filter(inventario=inventario, material__tipo_de_material__descricao=escolha)
+    print(materials)
+
+    return render(request, 'inventario_2.html', {'inventario':inventario, 'escolha':escolha, 'materials':materials})
 
 
 
