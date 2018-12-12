@@ -2,7 +2,6 @@
 {% load crispy_forms_tags %}
 
 {% block main %}
-  <form>
     <div id="page-wrapper">
       <div class="row">
         <div class="col-lg-12">
@@ -21,6 +20,7 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-lg-6">
+                <form  method="POST" >
                   <div class="form-group">
                     <label>Código</label>
                     <input class="form-control" value="{{ mat.material.id }}" disabled>
@@ -35,11 +35,10 @@
                       <input class="form-control" value="1ª contagem" disabled>
                     </div>
                     <div class="form-group">
-                    <form  method="POST" enctype="multipart/form-data">
                       {% csrf_token %}
-                     {{ form1 }}
+                     {{ form1 | crispy }}
                       <button type="submit"> Salvar </button>
-                    </form>
+                    </div>
                   {% endif %}
 
                   {% if c2 %}
@@ -48,11 +47,10 @@
                       <input class="form-control" value="2ª contagem" disabled>
                     </div>
                     <div class="form-group">
-                    <form  method="POST" enctype="multipart/form-data">
                       {% csrf_token %}
                       {{ form2 | crispy }}
                       <button type="submit"> Salvar </button>
-                    </form>
+                    </div>
                   {% endif %}
 
                   {% if c3 %}
@@ -61,13 +59,13 @@
                       <input class="form-control" value="3ª contagem" disabled>
                     </div>
                     <div class="form-group">
-                    <form  method="POST" enctype="multipart/form-data">
                       {% csrf_token %}
                       {{ form3 | crispy }}
                       <button type="submit"> Salvar </button>
-                    </form>
+                    </div>
                   {% endif %}
-                  </div>
+                </form>
+
                   </div>
                   </div>
                 </div>
@@ -82,7 +80,6 @@
           </div>
         </div>
         <!-- /#page-wrapper -->
-  </form>
 {#          <form  method="POST" enctype="multipart/form-data">#}
 {#          {% csrf_token %}#}
 {#          {{ form | crispy }}#}

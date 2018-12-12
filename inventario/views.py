@@ -91,25 +91,38 @@ def lanca_contagem(request, inventario, material):
 
     if mat.contagem_1 is None:
         c1 = True
-        if form1.is_valid():
-            print('passou aqui')
-            print(form1.cleaned_data['contagem_1'])
-            form1.save()
-            return redirect('inventario_2', mat.inventario.id, 'Descartável')
-
     elif mat.contagem_2 is None:
-        print('teste2')
+        c1 = False
         c2 = True
-        if form2.is_valid():
-            form2.save()
-            return redirect('inventario_2', mat.inventario.id, 'Descartável')
-
     elif mat.contagem_3 is None:
-        print('teste3')
+        c1 = False
+        c2 = False
         c3 = True
-        if form3.is_valid():
-            form3.save()
-            return redirect('inventario_2', mat.inventario.id, 'Descartável')
+    if request.method == 'POST':
+        if c1:
+
+            if form1.is_valid():
+                    form1.save()
+                    return redirect('inventario_2', mat.inventario.id, 'Descartável')
+
+        if c2:
+            if form2.is_valid():
+                form2.save()
+                return redirect('inventario_2', mat.inventario.id, 'Descartável')
+
+        if c3:
+            if form3.is_valid():
+                form3.save()
+                return redirect('inventario_2', mat.inventario.id, 'Descartável')
 
     return render(request, 'lanca_contagem.html', {'form1': form1, 'form2': form2, 'form3': form3, 'mat':mat,
                                                    'c1':c1, 'c2':c2, 'c3': c3})
+
+
+@login_required
+def inventario_delete(request, id):
+    inventario = Inventario.objects.get(id=id)
+
+    inventario.delete()
+
+    return redirect('inventario')
