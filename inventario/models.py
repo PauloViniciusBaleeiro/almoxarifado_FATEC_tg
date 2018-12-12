@@ -14,17 +14,16 @@ class Inventario(models.Model):
 
 
 class ItemIventario(models.Model):
-    CHOICES = (
-        (1, 'PRIMEIRA'),
-        (2, 'SEGUNDA'),
-        (3, 'TERCEIRA')
-    )
+
     inventario = models.ForeignKey(Inventario, on_delete=models.CASCADE)
     material = models.ForeignKey(Material, on_delete=models.PROTECT)
     quantidade = models.DecimalField(max_digits=10, decimal_places=3, blank=True, null=True)
-    contagem = models.PositiveIntegerField(choices=CHOICES, null=True, blank=True)
+    contagem_1 = models.PositiveIntegerField(null=True, blank=True, verbose_name='Quantidade')
+    contagem_2 = models.PositiveIntegerField(null=True, blank=True, verbose_name='Quantidade')
+    contagem_3 = models.PositiveIntegerField(null=True, blank=True, verbose_name='Quantidade')
+
 
     class Meta:
         verbose_name = 'item de inventario'
         verbose_name_plural = 'itens de inventário'
-        unique_together=['inventario', 'material', 'contagem']
+        unique_together=['inventario', 'material']

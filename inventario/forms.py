@@ -8,7 +8,20 @@ class InventarioForm(ModelForm):
         fields = '__all__'
 
 
-class ItemInventarioForm(ModelForm):
+class ItemInventario_1Form(ModelForm):
     class Meta:
         model = ItemIventario
-        exclude = ['inventario', 'contagem']
+        fields = ['contagem_1']
+
+
+class ItemInventario_2Form(ModelForm):
+    class Meta:
+        model = ItemIventario
+        fields = ['contagem_2']
+
+
+class ItemInventario_3Form(ModelForm):
+    class Meta:
+        model = ItemIventario
+        fields = ['contagem_3']
+
