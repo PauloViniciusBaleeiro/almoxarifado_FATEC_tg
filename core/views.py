@@ -29,7 +29,7 @@ def novo_fabricante(request):
         cnpj = form.cleaned_data['CNPJ']
         form.save()
         fabricante = Fabricante.objects.get(CNPJ=cnpj)
-        return redirect('contato', fabricante.id)
+        return redirect('atualiza_fabricante', fabricante.id)
     return render(request, 'novo_fabricante.html', {'form': form})
 
 @login_required
@@ -40,7 +40,7 @@ def atualiza_fabricante(request, id):
     if form.is_valid():
         form.save()
         return redirect('list_fabricantes')
-    return render(request, 'novo_fabricante.html', {'form': form})
+    return render(request, 'novo_fabricante.html', {'form': form, 'fab': fabricante})
 
 
 @login_required
@@ -112,8 +112,16 @@ def cadastra_estado(request):
 
 @login_required
 def lista_material(request):
-    materiais = Material.objects.all()
-    return render(request, 'list_material.html', {'materiais': materiais})
+    materiais = Material.objects.all().order_by('id')
+    cod = True
+    return render(request, 'list_material.html', {'materiais': materiais, 'cod': cod})
+
+
+@login_required
+def lista_material_a(request):
+    materiais = Material.objects.all().order_by('nome')
+    alfa = True
+    return render(request, 'list_material_a.html', {'materiais': materiais, 'alfa': alfa})
 
 @login_required
 def cadastra_material(request):
@@ -141,6 +149,17 @@ def altera_material(request, id):
         form.save()
         return redirect('lista_material')
     return render(request, 'novo_material.html', {'form': form})
+
+
+@login_required
+def deleta_material(request, id):
+    try:
+        mat = Material.objects.get(id=id)
+    except:
+        return HttpResponse('Item contém atividades vinculadas')
+    mat.delete()
+
+    return redirect('lista_material')
 
 
 @login_required

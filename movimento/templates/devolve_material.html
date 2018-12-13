@@ -58,7 +58,7 @@
                       <td>{{ material.material.nome }}</td>
                       <td>{{ material.material.unidade }}</td>
                       <td>{{ material.quantidade }}</td>
-                      <td><a href="#"  class="btn btn-danger">remover</a></td>
+                      <td><a href="{% url 'remove_item_dev' material.id %}"  class="btn btn-danger">remover</a></td>
                     </tr>
                     </tbody>
 
@@ -71,6 +71,7 @@
                 </div>
                 </div>
                 <a class="btn btn-primary" href="{% url 'home' %}" role="button">Registrar</a>
+                <a class="btn btn-danger" href="{% url 'cancela_dev' devolucao %}" role="button">Cancela</a>
               {% endif %}
               </div>
               </div>

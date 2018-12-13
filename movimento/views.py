@@ -205,13 +205,35 @@ def devolve_material(request, **kwargs):
                 item = True
                 return redirect('devolucao', devolucao.id)
     if kwargs:
+        devolucao = kwargs['id']
         material_list = ItemDevolucao.objects.filter(devolução=id)
         dev = True
         movimento = registra_movimento_devolucao(material_list, request.user)
         return render(request, 'devolve_material.html', {'form_devolucao': form_devolucao, 'form_item': form_item,
-                                                         'material_list': material_list, 'dev': dev})
+                                                         'material_list': material_list,
+                                                         'dev': dev, 'devolucao': devolucao})
     return render(request, 'devolve_material.html', {'form_devolucao': form_devolucao, 'form_item': form_item,
                                                      'dev': dev})
+
+
+@login_required
+def remove_item_dev(request, id):
+    item = ItemDevolucao.objects.get(id=id)
+    dev = item.devolução
+    item.delete()
+
+    return redirect('devolucao', dev.id)
+
+
+@login_required
+def cancela_dev(request, id):
+    dev = Devolucao.objects.get(id=id)
+    itens = ItemDevolucao.objects.filter(devolução=dev)
+    for m in itens:
+        m.delete()
+    dev.delete()
+
+    return redirect('home')
 
 
 @login_required

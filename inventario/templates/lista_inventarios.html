@@ -34,7 +34,7 @@
                           <td align="center">{{ i.id }}</td>
                           <td align="center">{{ i.data }}</td>
                           <td align="center">{{ i.user.first_name }}  {{ i.user.last_name }}</td>
-                          <td align="center"><a href="#" class="btn btn-primary">Consultar</a></td>
+                          <td align="center"><a href="{% url 'inventario_1' i.id %}" class="btn btn-primary">Consultar</a></td>
                         </tr>
                         </tbody>
                 {% endfor %}

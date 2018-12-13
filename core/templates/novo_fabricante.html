@@ -25,6 +25,10 @@
                 </div>
               </div>
             </div>
+            {% if fab %}
+                  <a href="{% url 'contato' fab.id %}" class="btn btn-primary">Cadastrar/Alterar Contatos</a>
+                     {% endif %}
+
             <a href="{% url 'list_fabricantes' %}" class="btn btn-primary">Voltar à listagem</a>
           </div>
         </div>
