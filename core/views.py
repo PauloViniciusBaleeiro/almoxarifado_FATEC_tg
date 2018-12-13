@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import (FabricanteForms, CidadeForm, EstadoForms, ContatoForm, MaterialForm, TipodeMaterialForm,
                     EntradaMaterialForm)
 from .models import Fabricante, Contato, Material
+from movimento.models import Movimento, MovimentoMaterial
 
 
 def home(request):
@@ -150,6 +151,16 @@ def entrada_de_material(request):
         formulario = form.save(commit=False)
         formulario.material.quantidade += qtd
         formulario.material.save()
+        movimento = registra_movimento(formulario.material, request.user, qtd)
         formulario.save()
         return redirect('lista_material')
     return render(request, 'entrada_material.html', {'form': form})
+
+
+def registra_movimento(material, user, quantidade):
+    movimento = Movimento.objects.create(usuário=user, tipo_de_movimento='E')
+    mat = MovimentoMaterial.objects.create(movimento=movimento, material=material, quatidade=quantidade,
+                                                motivo='Entrada de material')
+    success = 'Success'
+    return success
+

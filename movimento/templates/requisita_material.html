@@ -61,7 +61,7 @@
                       <td>{{ material.material.unidade }}</td>
                       <td>{{ material.quantidade }}</td>
                       <td>{{ material.get_serviço_display }}</td>
-                      <td><a href="#"  class="btn btn-danger">remover</a></td>
+                      <td><a href="{% url 'remove_item' material.id %}"  class="btn btn-danger">remover</a></td>
                     </tr>
                     </tbody>
                   {% endfor %}
@@ -73,7 +73,9 @@
                 <div class="col-lg-12">
 
                 <a href="{% url 'home' %}" type="submit" class="btn btn-primary" >Requisitar</a>
-                <a href="#" class="btn btn-danger">Cancelar</a>
+                {% if requisicao %}
+                <a href="{% url 'cancela' requisicao %}" class="btn btn-danger">Cancelar</a>
+                  {% endif %}
               {% endif %}
               </div>
               </div>

@@ -52,12 +52,34 @@ def requisita_material(request, **kwargs):
                 item = True
                 return redirect('requisita_new', requisição.id )
     if kwargs:
+        id = kwargs['id']
         material_list = RequisicaoMaterial.objects.filter(requisicao=id)
         info = True
         return render(request, 'requisita_material.html', {'form_info': form_info, 'form_item': form_item,
-                                                           'material_list': material_list, 'info': info})
+                                                           'material_list': material_list, 'info': info,
+                                                           'requisicao':id})
     return render(request, 'requisita_material.html', {'form_info': form_info, 'form_item': form_item,
                                                        'info': info})
+
+
+@login_required
+def remove_item(request, id):
+    item = RequisicaoMaterial.objects.get(id=id)
+    requisicao = item.requisicao
+    item.delete()
+
+    return redirect('requisita_new', requisicao.id)
+
+
+@login_required
+def cancela_requisição(request, id):
+    requisicao = Requisicao.objects.get(id=id)
+    materiais = RequisicaoMaterial.objects.filter(requisicao=id)
+    for m in materiais:
+        m.delete()
+    requisicao.delete()
+
+    return redirect('home')
 
 
 @login_required
@@ -185,6 +207,7 @@ def devolve_material(request, **kwargs):
     if kwargs:
         material_list = ItemDevolucao.objects.filter(devolução=id)
         dev = True
+        movimento = registra_movimento_devolucao(material_list, request.user)
         return render(request, 'devolve_material.html', {'form_devolucao': form_devolucao, 'form_item': form_item,
                                                          'material_list': material_list, 'dev': dev})
     return render(request, 'devolve_material.html', {'form_devolucao': form_devolucao, 'form_item': form_item,
@@ -198,10 +221,12 @@ def descarte(request):
     if form.is_valid():
         movimento = Movimento.objects.create(usuário=request.user, tipo_de_movimento='P')
         quantidade = form.cleaned_data['quatidade']
+        motivo = form.cleaned_data['motivo']
         item = form.save(commit=False)
         item.movimento = movimento
         item.material.quantidade -= quantidade
         item.material.save()
+        mov = registra_movimento(movimento, item.material, quantidade, motivo)
         item.save()
         return redirect('descarte')
 
@@ -214,10 +239,12 @@ def decremento(request):
     if form.is_valid():
         movimento = Movimento.objects.create(usuário=request.user, tipo_de_movimento='S')
         quantidade = form.cleaned_data['quatidade']
+        motivo = form.cleaned_data['motivo']
         item = form.save(commit=False)
         item.movimento = movimento
         item.material.quantidade -= quantidade
         item.material.save()
+        mov = registra_movimento(movimento, item.material, quantidade, motivo)
         item.save()
         return redirect('descarte')
 
@@ -257,4 +284,19 @@ def localiza_requisicao(request):
     return render(request, 'localiza_requisicao.html')
 
 
+def registra_movimento_devolucao(material, user):
+    mov = Movimento.objects.create(usuário=user, tipo_de_movimento='E')
+
+    for m in material:
+        item = MovimentoMaterial.objects.create(movimento=mov, material=m.material, quatidade=m.quantidade,
+                                                motivo="Devolução")
+
+    s = "Success"
+
+    return s
+
+
+def registra_movimento(mov, material, quantidade, motivo):
+    item = MovimentoMaterial(movimento=mov, material=material, quatidade=quantidade, motivo=motivo)
+    return item
 
