@@ -3,24 +3,61 @@
   <div id="page-wrapper">
     <div class="row">
       <div class="col-lg-12">
-        <a href="{% url 'home' %}"> <h4>Home </h4></a>
-        {% if posicoes %}
-          {% for posicao in posicoes %}
-            <ul>
-              <li>
-                <a href="{% url 'vincula_material' posicao.id %}">{{ posicao }}</a>
-                <a href="{% url 'remover_posicao' posicao.id %}">deletar</a>
-              </li>
-            </ul>
-          {% endfor %}
-        {% else %}
-          <h2> Não há posições cadastradas</h2>
-          <a href="{% url 'nova_posicao' %}">Clique aqui para cadastrar uma nova posicao</a>
-        {% endif %}
-        <br>
-        <a href="{% url 'nova_posicao' %}">Clique Aqui para cadastrar uma nova posicao</a>
+        <h1 class="page-header">Lista de posições de Armazenagem</h1>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <b>Listagem de endereços</b>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-6">
+                </div>
+
+                {% if posicoes %}
+                  <table class="table">
+                    <div>
+                      <thead>
+                      <tr>
+                        <th scope="col">Endereço</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Consultar itens do endereço</th>
+                        <th scope="col">Adicionar material</th>
+                        <th scope="col">Deletar</th>
+                      </tr>
+                      </thead>
+
+                      {% for posicao in posicoes %}
+                        <tbody>
+                        <tr>
+                          <td>{{ posicao.endereco_setor }}</td>
+                          <td>{{ posicao.nome_posicao }}</td>
+                          <td><a href="{% url 'vincula_material' posicao.id %}" class="btn btn-primary">Consultar</a></td>
+                          <td><a href="{% url 'vincula_material' posicao.id %}" class="btn btn-success">Adicionar material</a></td>
+                          <td> <a href="{% url 'remover_posicao' posicao.id %}" class="btn btn-danger">deletar</a></td>
+                        </tr>
+                        </tbody>
+                      {% endfor %}
+                    </div>
+                  </table>
+                {% else %}
+                  <div class="alert alert-info" role="alert">
+                        Não há posições cadastradas
+                      </div>
+                  <a href="{% url 'nova_posicao' %}" class="btn btn-primary">Nova posição</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <a href="{% url 'nova_posicao' %}" class="btn btn-primary">Nova posição</a>
+        </div>
       </div>
     </div>
+  </div>
+
+  </div>
   </div>
 {% endblock %}
 

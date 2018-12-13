@@ -18,8 +18,11 @@
 {% if user.is_authenticated %}
 <div id="wrapper">
         <!-- Navigation -->
+
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-          <h2 align="center"> AlmoxData</h2>
+          <ul class="nav navbar-top-links navbar-left">
+            <h2 align="center"> AlmoxData</h2>
+          </ul>
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
@@ -27,10 +30,10 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> Perfil do Usuário</a>
+                            <a href="http://localhost:8000/admin/auth/user"><i class="fa fa-user fa-fw"></i> Perfil do Usuário</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-gear fa-fw"></i> Configurações</a>
+                            <a href="http://localhost:8000/admin/"><i class="fa fa-gear fa-fw"></i> Configurações</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -42,6 +45,7 @@
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
+        </nav>
           <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
               <ul class="nav" id="side-menu">
@@ -50,7 +54,7 @@
                 </li>
 
                 <li>
-                  <a href="#" ><i class="fa fa-clipboard fa-fw"></i> Movimentações<span class="fa arrow"></span></a>
+                  <a href="#" aria-expanded="false"><i class="fa fa-archive" ></i> Movimentações<span class="fa arrow"></span></a>
                   <ul class="nav nav-second-level collapse in">
                     <li>
                       <a id="linkMenuRequisitarMaterial" href="{% url 'requisicao' %}">Requisitar Material</a>
@@ -79,10 +83,7 @@
                       <a id="linkMenuGerarEtiqueta" href="#">Gerar Etiqueta</a>
                     </li>
                     <li>
-                      <a id="linkMenuInventario" href="#">Inventario</a>
-                    </li>
-                    <li>
-                      <a id="linkMenuLancarContagem" href="#">Lançar Contagem</a>
+                      <a id="linkMenuInventario" href="{% url 'lista_inventario' %}">Inventario</a>
                     </li>
                     <li>
                       <a id="linkMenuPosicaoEstocagem" href="{% url 'list_posicoes' %}">Posição Estocagem</a>
@@ -90,10 +91,10 @@
                   </ul>
                 </li>
                 <li>
-                  <a href="#"><i class="fa fa-clipboard fa-fw"></i> Cadastros<span class="fa arrow"></span></a>
+                  <a href="#" class="collapse"><i class="fa fa-pencil-square-o" ></i> Cadastros<span class="fa arrow"></span></a>
                   <ul class="nav nav-second-level collapse in">
                       <li>
-                        <a id="linkMenuEditarFabricante" href="{% url 'list_fabricantes' %}">Editar Fabricante</a>
+                        <a id="linkMenuEditarFabricante" href="{% url 'lista_material' %}">Listar Materiais</a>
                       </li>
                       <li>
                         <a id="linkMenuCadastroFabricante" href={% url 'novo_fabricante' %}>Cadastro de Fabricante</a>
@@ -126,10 +127,7 @@
     <script src="../static/vendor/metisMenu/metisMenu.min.js"></script>
     {% endif %}
 <!-- Footer -->
-
-<!-- Footer -->
-</body>
-<footer class="page-footer font-small blue">
+<footer class="panel-footer">
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© 2018 Copyright:
@@ -138,4 +136,7 @@
   <!-- Copyright -->
 
 </footer>
+<!-- Footer -->
+</body>
+
 </html>

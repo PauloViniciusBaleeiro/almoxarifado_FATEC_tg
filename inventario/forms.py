@@ -1,11 +1,15 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, DateInput
 from .models import ItemIventario, Inventario
 
 
 class InventarioForm(ModelForm):
     class Meta:
         model = Inventario
-        fields = '__all__'
+        fields = ['data', 'user']
+        widgets = {
+            'data': DateInput(),
+        }
+
 
 
 class ItemInventario_1Form(ModelForm):

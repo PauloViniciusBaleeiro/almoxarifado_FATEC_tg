@@ -1,39 +1,95 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block main %}
   <div id="page-wrapper">
     <div class="row">
       <div class="col-lg-12">
-        <a href="{% url 'home' %}"> <h4>Home</h4></a>
-        <h1> Contatos para {{ fabricante }}</h1>
-        <br>
+<h1 class="page-header">Novo contato</h1>
+      </div>
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <b>Contatos de {{ fabricante.nome_fantasia }}</b>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-6">
+                </div>
         {% if contatos %}
+          <table class="table">
+                    <div>
+                      <thead>
+                      <tr>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Remover</th>
+                      </tr>
+                      </thead>
           {% for contato in contatos %}
-            <ul>
-              <li>
-                <p>Telefone: {{ contato.telefone }}</p>
-                <p>E-mail: {{ contato.e_mail }}</p>
-                <a href="{% url 'remover_contato' contato.id %}">Remover</a>
-                <br><br>
-              </li>
-              <li>
-                <form  method="POST" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  {{ form }}
-                  <button type="submit"> Adicionar </button>
-                </form>
-              </li>
-            </ul>
-            <br>
-          {% endfor %}
-          <br>
-        {% else %}
+            <tbody>
+                        <tr>
+                          <td>{{ contato.telefone }}</td>
+                          <td>{{ contato.e_mail }}</td>
+                          <td><a href="{% url 'remover_contato' contato.id %}" class="btn btn-danger">Remover</a></td>
+                        </tr>
+                        </tbody>
+
+
+ {% endfor %}
+                    </div>
+            </table>
+ </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <b>Novo Contato</b>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-6">
+                </div>
+              </div>
+
           <form  method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form }}
-            <button type="submit"> Adicionar </button>
+            {{ form | crispy }}
+            <button type="submit" class="btn btn-success"> Adicionar </button>
+          </form>
+
+            <br>
+          <br>
+        {% else %}
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <b>Novo Contato</b>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-6">
+                </div>
+              </div>
+          <form  method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit" class="btn btn-success"> Adicionar </button>
           </form>
         {% endif %}
-        <a href="{% url 'list_fabricantes' %}">Voltar</a>
+                </div>
+                </div>
+        <a href="{% url 'list_fabricantes' %}" class="btn btn-primary">Voltar</a>
       </div>
     </div>
   </div>

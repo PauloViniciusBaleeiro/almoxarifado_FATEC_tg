@@ -3,23 +3,57 @@
   <div id="page-wrapper">
     <div class="row">
       <div class="col-lg-12">
-        <a href="{% url 'home' %}"> <h4>Home </h4></a>
-        {% if fabricantes %}
-          {% for fabricante in fabricantes %}
-            <ul>
-              <li>
-                <a href="{% url 'atualiza_fabricante' fabricante.id %}">{{ fabricante.nome_fantasia }}</a>
-                <a href="{% url 'delete' fabricante.id %}">deletar</a>
-              </li>
-            </ul>
-          {% endfor %}
-        {% else %}
-          <h2> Não há fabricantes cadastrados</h2>
-          <a href="{%  url 'novo_fabricante' %}">Clique Aqui para cadastrar um fabricante</a>
-        {% endif %}
-        <br><br>
-        <a href="{% url 'novo_fabricante' %}">Novo fabricante</a>
+        <h1 class="page-header">Lista de Fabricantes</h1>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <b>Fabricantes</b>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-6">
+                </div>
+                {% if fabricantes %}
+                  <table class="table">
+                    <div>
+                      <thead>
+                      <tr>
+                        <th scope="col">Razão social</th>
+                        <th scope="col">Nome Fantasia</th>
+                        <th scope="col">Consultar/Alterar</th>
+                        <th scope="col">Remover</th>
+                      </tr>
+                      </thead>
+                      {% for fabricante in fabricantes %}
+                        <tbody>
+                        <tr>
+                          <td>{{ fabricante.razao_social }}</td>
+                          <td>{{ fabricante.nome_fantasia }}</td>
+                          <td><a href="{% url 'atualiza_fabricante' fabricante.id %}" class="btn btn-primary">Consultar/Alterar</a></td>
+                          <td><a href="{% url 'delete' fabricante.id %}" class="btn btn-danger">Remover</a></td>
+                        </tr>
+                        </tbody>
+                      {% endfor %}
+                    </div>
+                  </table>
+                {% else %}
+                  <div class="alert alert-info" role="alert">
+                    Não há fabricantes cadastrados
+                  </div>
+                  <br>
+                  <a href="{%  url 'novo_fabricante' %}" class="btn btn-primary">Novo fabricante</a>
+                {% endif %}
+                <br>
+              </div>
+            </div>
+          </div>
+          <a href="{%  url 'novo_fabricante' %}" class="btn btn-primary">Novo fabricante</a>
+        </div>
       </div>
     </div>
+  </div>
+  </div>
   </div>
 {% endblock %}

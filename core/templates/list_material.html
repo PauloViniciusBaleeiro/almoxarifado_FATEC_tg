@@ -3,22 +3,59 @@
   <div id="page-wrapper">
     <div class="row">
       <div class="col-lg-12">
-        <a href="{% url 'home' %}"> <h4>Home </h4></a>
+      <h1 class="page-header">Lista de materiais</h1>
+        </div>
+    <div class="row">
+        <div class="col-lg-12">
+        <a href="#" class="btn btn-primary">Ordem Alfabética</a>
+        <br><br>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <b>Lista de materiais cadastrados</b>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-6">
+                </div>
         {% if materiais %}
+          <table class="table">
+                    <div>
+                      <thead>
+                      <tr>
+                        <th scope="col">Código do Material</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Unidade</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Consultar/Alterar</th>
+                        <th scope="col">Remover</th>
+                      </tr>
+                      </thead>
           {% for material in materiais %}
-            <ul>
-              <li>
-                <a href="{% url 'altera_material' material.id %}">{{ material.nome }}</a>
-                <a href="#">deletar</a>
-              </li>
-            </ul>
+            <tbody>
+                        <tr>
+                          <td>{{ material.id }}</td>
+                          <td>{{ material.nome }}</td>
+                          <td>{{ material.unidade }}</td>
+                          <td>{{ material.quantidade }}</td>
+                          <td><a href="{% url 'altera_material' material.id %}" class="btn btn-info">Consultar/Alterar</a></td>
+                          <td><a href="#" class="btn btn-danger">Remover</a></td>
+                        </tr>
+                        </tbody>
           {% endfor %}
+                    </div>
+          </table>
         {% else %}
-          <h2> Não há materiais cadastrados</h2>
+          <div class="alert alert-info" role="alert">
+                    Não há materiais cadastrados
+                  </div>
+          <br>
           <a href="{%  url 'novo_material' %}">Clique Aqui para cadastrar um material</a>
         {% endif %}
-        <br><br>
-        <a href="{% url 'novo_material' %}">Novo material</a>
+              </div>
+            </div>
+          </div>
+        <br>
+        <a href="{% url 'novo_material' %}" class="btn btn-primary">Novo material</a>
       </div>
     </div>
   </div>

@@ -80,7 +80,7 @@ def inventario_lista(request, id, escolha):
 @login_required
 def lanca_contagem(request, inventario, material):
 
-    mat = ItemIventario.objects.get(material=material)
+    mat = ItemIventario.objects.get(id=material)
     form1 = ItemInventario_1Form(request.POST or None, instance=mat)
     form2 = ItemInventario_2Form(request.POST or None, instance=mat)
     form3 = ItemInventario_3Form(request.POST or None, instance=mat)
@@ -126,3 +126,10 @@ def inventario_delete(request, id):
     inventario.delete()
 
     return redirect('inventario')
+
+
+@login_required
+def lista_inventario(request):
+    inventarios = Inventario.objects.all().order_by('-data')
+
+    return render(request, 'lista_inventarios.html', {'inventarios': inventarios})

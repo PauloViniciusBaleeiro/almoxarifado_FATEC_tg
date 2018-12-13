@@ -3,64 +3,84 @@
   <div id="page-wrapper">
     <div class="row">
       <div class="col-lg-12">
-        <form>
-          <div class="row">
-            <div class="six columns">
-              <label> Busca por id:</label>
-              <input class="u-full-width" type="text" placeholder="Por número..." name="id">
+        <h1 class="page-header">Nova requisição</h1>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <b>Pesquisa requisições</b>
             </div>
-          </div>
-        </form>
-      <form>
-          <div class="row">
-            <div class="six columns">
-              <label> Busca por nome do solicitante:</label>
-              <input class="u-full-width" type="text" placeholder="Por solicitante..." name="user">
-            </div>
-          </div>
-        </form>
-       <form>
-          <div class="row">
-            <div class="six columns">
-              <label> Busca por data:</label>
-              <input class="u-full-width" type="date" placeholder="Por data..." name="data">
-              <button type="submit" class="btn btn-secondary" >Buscar</button>
-            </div>
-          </div>
-        </form>
-       {% if requisicao_id %}
-        <ul>
-          <li>requisição número : {{ requisicao_id.id}}</li>
-          <li>usuário: {{ requisicao_id.usuario.first_name}} {{ requisicao_id.usuario.last_name }}</li>
-          <li>data: {{ requisicao_id.data}}</li>
-          <li>situação: {{ requisicao_id.situacao }}</li>
-        </ul>
-        {% endif %}
-       {% if resposta %}
-        {{ resposta }}
-      {% endif %}
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-6">
+                  <form>
+                    <div class="row">
+                      <div class="six columns">
+                        <label> Busca por id:</label>
+                        <input class="u-full-width" type="text" placeholder="Por número..." name="id">
+                      </div>
+                    </div>
+                  </form>
+                  <form>
+                    <div class="row">
+                      <div class="six columns">
+                        <label> Busca por nome do solicitante:</label>
+                        <input class="u-full-width" type="text" placeholder="Por solicitante..." name="user">
+                      </div>
+                    </div>
+                  </form>
+                  <form>
+                    <div class="row">
+                      <div class="six columns">
+                        <label> Busca por data:</label>
+                        <input class="u-full-width" type="date" placeholder="Por data..." name="data">
+                        <button type="submit" class="btn btn-secondary" >Buscar</button>
+                      </div>
+                    </div>
+                  </form>
+                  {% if requisicao_id %}
+                    <ul>
+                      <li>requisição número : {{ requisicao_id.id}}</li>
+                      <li>usuário: {{ requisicao_id.usuario.first_name}} {{ requisicao_id.usuario.last_name }}</li>
+                      <li>data: {{ requisicao_id.data}}</li>
+                      <li>situação: {{ requisicao_id.situacao }}</li>
+                    </ul>
+                  {% endif %}
+                  {% if resposta %}
+                    {{ resposta }}
+                  {% endif %}
 
-      {%  if requisicao_name %}
-      {% for req in requisicao_name %}
-      <ul>
-          <li>requisição número : {{ req.id}}</li>
-          <li>usuário: {{ req.usuario.first_name}} {{ req.usuario.last_name }}</li>
-          <li>data: {{ req.data}}</li>
-          <li>situação: {{ req.situacao }}</li>
-      </ul>
-{% endfor %}
-      {% endif %}
-      {%  if requisicao_data %}
-      {% for req in requisicao_data %}
-      <ul>
-          <li>requisição número : {{ req.id}}</li>
-          <li>usuário: {{ req.usuario.first_name}} {{ req.usuario.last_name }}</li>
-          <li>data: {{ req.data}}</li>
-          <li>situação: {{ req.situacao }}</li>
-      </ul>
-{% endfor %}
-      {% endif %}
+                  {%  if requisicao_name %}
+                    {% for req in requisicao_name %}
+                      <ul>
+                        <li>requisição número : {{ req.id}}</li>
+                        <li>usuário: {{ req.usuario.first_name}} {{ req.usuario.last_name }}</li>
+                        <li>data: {{ req.data}}</li>
+                        <li>situação: {{ req.situacao }}</li>
+                      </ul>
+                    {% endfor %}
+                  {% endif %}
+                  {%  if requisicao_data %}
+                    {% for req in requisicao_data %}
+                      <ul>
+                        <li>requisição número : {{ req.id}}</li>
+                        <li>usuário: {{ req.usuario.first_name}} {{ req.usuario.last_name }}</li>
+                        <li>data: {{ req.data}}</li>
+                        <li>situação: {{ req.situacao }}</li>
+                      </ul>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+
+  </div>
+  </div>
   </div>
 {% endblock %}

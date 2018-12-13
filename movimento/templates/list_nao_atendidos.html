@@ -3,30 +3,56 @@
   <div id="page-wrapper">
     <div class="row">
       <div class="col-lg-12">
-        {% if itens > 0 %}
-        {% for req in requisicoes %}
-          <ul>
-          <a href="{% url 'requisicao_detalhe' req.id %}">
-            <li>
-              id : {{ req.id }}
-            </li>
-            <li>
-              data : {{ req.data }}
-            </li>
-            <li>
-              situação : {{ req.situação }}
-            </li>
-          </a>
-          </ul>
-        {% endfor %}
-      {% else %}
-          <br>
-          <div class="alert alert-info" role="alert">
-            Não há requisições para serem atendidas!
-          </div>
+        <h1 class="page-header">Atendimento de requisições</h1>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <b>Lista de requisições em aberto</b>
+            </div>
+            <div class="panel-body">
 
-      {% endif %}
+              <div class="row">
+                <div class="col-lg-6">
+                </div>
+                    {% if itens > 0 %}
+                      <table class="table">
+                  <div>
+                    <thead>
+                    <tr>
+                      <th scope="col">Id</th>
+                      <th scope="col">Data</th>
+                      <th scope="col">Situação</th>
+                      <th scope="col">Atender</th>
+                    </tr>
+                    </thead>
+                      {% for req in requisicoes %}
+                        <tbody>
+                        <tr>
+                          <td>{{ req.id }}</td>
+                          <td>{{ req.data }}</td>
+                          <td>{{ req.situação }}</td>
+                          <td><a href="{% url 'requisicao_detalhe' req.id %}" class="btn btn-primary">Atender</a></td>
+                        </tr>
+                        </tbody>
+
+                      {% endfor %}
+                      </table>
+
+                    {% else %}
+                      <br>
+                      <div class="alert alert-info" role="alert">
+                        Não há requisições para serem atendidas!
+                      </div>
+
+                    {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
 {% endblock %}

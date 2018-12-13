@@ -20,13 +20,13 @@ class Cidade(models.Model):
 class Fabricante(models.Model):
 
     CNPJ = models.CharField(max_length=20, blank=False, null=False, unique=True)
-    nome_fantasia = models.CharField(max_length=20, verbose_name='nome fantasia')
-    razao_social = models.CharField(max_length=20, verbose_name='razão social')
+    nome_fantasia = models.CharField(max_length=60, verbose_name='nome fantasia')
+    razao_social = models.CharField(max_length=60, verbose_name='razão social')
     logradouro = models.CharField(max_length=20, default='rua')
-    nome_do_logradouro = models.CharField(max_length=20, verbose_name='nome do logradouro')
+    nome_do_logradouro = models.CharField(max_length=50, verbose_name='nome do logradouro')
     numero = models.IntegerField(verbose_name='número', blank=True)
-    complemento = models.CharField(max_length=20, blank=True)
-    bairro = models.CharField(max_length=20)
+    complemento = models.CharField(max_length=50, blank=True)
+    bairro = models.CharField(max_length=50)
     cep = models.CharField(max_length=9)
     cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE)
 
