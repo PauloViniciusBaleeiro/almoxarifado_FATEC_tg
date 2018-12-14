@@ -141,3 +141,5 @@ STATICFILES_DIRS = (
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/img')

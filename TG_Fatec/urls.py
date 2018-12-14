@@ -21,6 +21,8 @@ from movimento import urls as movimento_urls
 from inventario import urls as inventario_urls
 from django.contrib.auth import urls as auth_urls
 from relatorios import urls as relatorios_urls
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -32,4 +34,4 @@ urlpatterns = [
     path('', include(posicao_urls)),
     path('', include(relatorios_urls)),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
