@@ -13,6 +13,7 @@
   <link href="../../static/dist/css/sb-admin-2.css" rel="stylesheet">
   <!-- Custom Fonts -->
   <link href="../../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 </head>
 <body>
 {% if user.is_authenticated %}
@@ -54,7 +55,7 @@
                 </li>
 
                 <li>
-                  <a href="#" aria-expanded="false"><i class="fa fa-archive" ></i> Movimentações<span class="fa arrow"></span></a>
+                  <a href="#" aria-expanded="false"><i class="fas fa-dolly" ></i> Movimentações<span class="fa arrow"></span></a>
                   <ul class="nav nav-second-level collapse in">
                     <li>
                       <a id="linkMenuRequisitarMaterial" href="{% url 'requisicao' %}">Requisitar Material</a>
@@ -91,6 +92,19 @@
                   </ul>
                 </li>
                 <li>
+                  <a href="#" class="collapse"><i class="fa fa-file-text" ></i> Relatórios<span class="fa arrow"></span></a>
+                  <ul class="nav nav-second-level collapse in">
+                    <li>
+                      <a href="{% url 'rel_movimentacoes' %}">Relatório de Movimentações</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'estoque' %}">Listar Materiais</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'perdas_avarias' %}">Listar Materiais</a>
+                    </li>
+                  </ul>
+
                   <a href="#" class="collapse"><i class="fa fa-pencil-square-o" ></i> Cadastros<span class="fa arrow"></span></a>
                   <ul class="nav nav-second-level collapse in">
                       <li>

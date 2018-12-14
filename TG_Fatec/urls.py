@@ -20,6 +20,7 @@ from estocagem import urls as posicao_urls
 from movimento import urls as movimento_urls
 from inventario import urls as inventario_urls
 from django.contrib.auth import urls as auth_urls
+from relatorios import urls as relatorios_urls
 
 
 urlpatterns = [
@@ -28,6 +29,7 @@ urlpatterns = [
     path('', include(movimento_urls)),
     path('', include(inventario_urls)),
     path('users/', include(auth_urls)),
-    path('', include(posicao_urls))
+    path('', include(posicao_urls)),
+    path('', include(relatorios_urls)),
 
 ]
