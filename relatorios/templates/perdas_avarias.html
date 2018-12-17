@@ -7,13 +7,13 @@
 </head>
 <body>
 <div>
-  <h3 align="left">Logo</h3>
-  <h4 align="right">Perdas e Avarias &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Data: {{ data }}</h4>
-  <h4 align="right">Detalhamento de perdas e avarias &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Pagína 1 de 1</h4>
+  <h3 align="left">&emsp;AlmoxData</h3>
+  <h4 align="right">Perdas e Avarias &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Data: {{ data }}&emsp;&emsp;</h4>
+  <h4 align="right">Detalhamento de perdas e avarias &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Pagína 1 de 1&emsp;&emsp;</h4>
 </div>
 <div>
   <hr/>
-  <h5 class="alinha"> Solicitante: {{ resp.id }} - {{ resp.first_name }} {{ resp.last_name }} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  <h5 class="alinha">&emsp; Solicitante: {{ resp.id }} - {{ resp.first_name }} {{ resp.last_name }} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Almoxarifado </h5>
 <hr/>
@@ -24,6 +24,7 @@
       <th align="center" scope="col">Data do registro</th>
       <th align="center" scope="col">Id do material</th>
       <th scope="col">Nome</th>
+      <th scope="col">Motivo</th>
       <th scope="col"> Unidade</th>
       <th scope="col">Quantidade</th>
     </tr>
@@ -34,6 +35,7 @@
       <th scope="row">{{ m.movimento.data_do_movimento }}</th>
       <td >{{ m.material.id }}</td>
       <td >{{ m.material.nome}}</td>
+      <td>  {{ m.motivo }}</td>
       <td >{{ m.material.unidade }}</td>
       {% if m.quatidade == None %}
       <td> 0 </td>

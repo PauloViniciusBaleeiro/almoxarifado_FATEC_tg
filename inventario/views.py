@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
+from datetime import datetime
 from core.models import TipodeMaterial
 from .models import Inventario, ItemIventario, Material
 from core.models import TipodeMaterial
 from django.contrib.auth.decorators import login_required
-from .forms import InventarioForm, ItemInventario_1Form, ItemInventario_2Form, ItemInventario_3Form
+from .forms import InventarioForm, ItemInventario_1Form, ItemInventario_2Form, ItemInventario_3Form, MaterialForm
 
 
 def lista_material(tipo):
@@ -27,28 +28,20 @@ def criar_inventario(request):
 def escolha(request, id):
     inventario = Inventario.objects.get(id=id)
     tipos = TipodeMaterial.objects.all()
+    form = MaterialForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            escolha = form.cleaned_data['tipo_de_material']
+        return redirect('inventario_2', id, escolha)
 
-    # escolha = request.GET.get('escolha', None)
-    #
-    # if escolha:
-    #     print('passou aqui')
-    #     materiais = Material.objects.filter(tipo_de_material__descricao=escolha)
-    #     for mat in materiais:
-    #         item_inventario = ItemIventario.objects.create(inventario=inventario, material=mat)
-    #     materials = ItemIventario.objects.filter(inventario=inventario)
-    #     return render(request, 'inventario_2.html', {'inventario': inventario, 'escolha':escolha,
-    #                                                  'materials': materials})
-    return render(request, 'inventario_1.html', {'inventario': inventario, 'tipos':tipos})
+    return render(request, 'inventario_1.html', {'inventario': inventario, 'tipos':tipos, 'form': form})
 
 
 @login_required
 def inventario_lista(request, id, escolha):
     inventario = Inventario.objects.get(id=id)
     materials = ItemIventario.objects.filter(inventario=inventario, material__tipo_de_material__descricao=escolha)
-    # materials_2 = ItemIventario.objects.filter(inventario=inventario, material__tipo_de_material__descricao=escolha,
-    #                                            contagem=2)
-    # materials_3 = ItemIventario.objects.filter(inventario=inventario, material__tipo_de_material__descricao=escolha,
-    #                                            contagem=3)
+
     if len(materials) == 0:
         materiais = Material.objects.filter(tipo_de_material__descricao=escolha)
         for mat in materiais:
@@ -56,23 +49,6 @@ def inventario_lista(request, id, escolha):
 
         materials = ItemIventario.objects.filter(inventario=inventario,
                                                    material__tipo_de_material__descricao=escolha)
-
-    # if len(materials_2) == 0:
-    #     materiais = Material.objects.filter(tipo_de_material__descricao=escolha)
-    #     for mat in materiais:
-    #         itens_inventario = ItemIventario.objects.create(inventario=inventario, material=mat, contagem=2)
-    #
-    #     materials_2 = ItemIventario.objects.filter(inventario=inventario,
-    #                                                material__tipo_de_material__descricao=escolha, contagem=2)
-    #
-    # if len(materials_3) == 0:
-    #     materiais = Material.objects.filter(tipo_de_material__descricao=escolha)
-    #     for mat in materiais:
-    #         itens_inventario = ItemIventario.objects.create(inventario=inventario, material=mat, contagem=3)
-    #
-    #     materials_3 = ItemIventario.objects.filter(inventario=inventario,
-    #                                                material__tipo_de_material__descricao=escolha, contagem=3)
-
 
     return render(request, 'inventario_2.html', {'inventario':inventario, 'escolha':escolha, 'materials':materials})
 
@@ -88,6 +64,7 @@ def lanca_contagem(request, inventario, material):
     c1 = False
     c2 = False
     c3 = False
+    mat = ItemIventario.objects.get(id=material)
 
     if mat.contagem_1 is None:
         c1 = True
@@ -103,17 +80,17 @@ def lanca_contagem(request, inventario, material):
 
             if form1.is_valid():
                     form1.save()
-                    return redirect('inventario_2', mat.inventario.id, 'Descartável')
+                    return redirect('inventario_2', mat.inventario.id, mat.material.tipo_de_material)
 
         if c2:
             if form2.is_valid():
                 form2.save()
-                return redirect('inventario_2', mat.inventario.id, 'Descartável')
+                return redirect('inventario_2', mat.inventario.id, mat.material.tipo_de_material)
 
         if c3:
             if form3.is_valid():
                 form3.save()
-                return redirect('inventario_2', mat.inventario.id, 'Descartável')
+                return redirect('inventario_2', mat.inventario.id, mat.material.tipo_de_material)
 
     return render(request, 'lanca_contagem.html', {'form1': form1, 'form2': form2, 'form3': form3, 'mat':mat,
                                                    'c1':c1, 'c2':c2, 'c3': c3})
@@ -133,3 +110,17 @@ def lista_inventario(request):
     inventarios = Inventario.objects.all().order_by('-data')
 
     return render(request, 'lista_inventarios.html', {'inventarios': inventarios})
+
+@login_required
+def rel_inventario(request, id):
+    now = datetime.now()
+    dia = now.day
+    mes = now.month
+    ano = now.year
+    data = str(dia) + "/" + str(mes) + '/' + str(ano)
+    resp = request.user
+    inventario = Inventario.objects.get(id=id)
+    itens = ItemIventario.objects.filter(inventario=inventario)
+    return render(request, 'rel_inventario.html', {'itens': itens, 'inventario': inventario,
+                                                        'resp': resp, 'data': data})
+

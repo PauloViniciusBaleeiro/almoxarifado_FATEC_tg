@@ -40,36 +40,69 @@
                     </div>
                   </form>
                   {% if requisicao_id %}
-                    <ul>
+                    <l>
+                    <a href="{% url 'requisita_new' requisicao_id %}">
                       <li>requisição número : {{ requisicao_id.id}}</li>
                       <li>usuário: {{ requisicao_id.usuario.first_name}} {{ requisicao_id.usuario.last_name }}</li>
                       <li>data: {{ requisicao_id.data}}</li>
-                      <li>situação: {{ requisicao_id.situacao }}</li>
+                      <li>situação: {{ requisicao_id.situacao }}</li></a>
                     </ul>
                   {% endif %}
                   {% if resposta %}
+                    <br>
+                    <div class="alert alert-danger" role="alert">
                     {{ resposta }}
+                    </div>
                   {% endif %}
 
                   {%  if requisicao_name %}
+                    <br>
+                    <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th align="center" scope="col">Número da requisição</th>
+                      <th align="center" scope="col">Solicitante</th>
+                      <th scope="col">Data</th>
+                      <th scope="col">Situação</th>
+                      <th scope="col"> Acessar</th>
+                    </tr>
+                    </thead>
                     {% for req in requisicao_name %}
-                      <ul>
-                        <li>requisição número : {{ req.id}}</li>
-                        <li>usuário: {{ req.usuario.first_name}} {{ req.usuario.last_name }}</li>
-                        <li>data: {{ req.data}}</li>
-                        <li>situação: {{ req.situacao }}</li>
-                      </ul>
+                      <tbody class="">
+                      <tr>
+                      <th scope="row">{{ req.id}}</th>
+                      <td >{{ req.usuario.first_name}} {{ req.usuario.last_name }}</td>
+                      <td>  {{ req.data}}</td>
+                      <td >{{ req.situacao }}</td>
+                        <td><a href="{% url 'requisita_new' req.id %}" class="btn btn-primary">Acessar</a> </td>
+                      </tr>
+                      </tbody>
                     {% endfor %}
+                    </table>
                   {% endif %}
                   {%  if requisicao_data %}
+                    <br>
+                    <table class="table table-striped">
+                    <thead>
+                     <tr>
+                      <th align="center" scope="col">Número da requisição</th>
+                      <th align="center" scope="col">Solicitante</th>
+                      <th scope="col">Data</th>
+                      <th scope="col">Situação</th>
+                      <th scope="col"> Acessar</th>
+                    </tr>
                     {% for req in requisicao_data %}
-                      <ul>
-                        <li>requisição número : {{ req.id}}</li>
-                        <li>usuário: {{ req.usuario.first_name}} {{ req.usuario.last_name }}</li>
-                        <li>data: {{ req.data}}</li>
-                        <li>situação: {{ req.situacao }}</li>
-                      </ul>
+                       <tbody class="">
+                      <tr>
+                      <th scope="row">{{ req.id}}</th>
+                      <td >{{ req.usuario.first_name}} {{ req.usuario.last_name }}</td>
+                      <td>  {{ req.data}}</td>
+                      <td >{{ req.situacao }}</td>
+                        <td><a href="{% url 'requisita_new' req.id %}" class="btn btn-primary">Acessar</a> </td>
+                      </tr>
+                      </tbody>
                     {% endfor %}
+                    </table>
                   {% endif %}
                 </div>
               </div>

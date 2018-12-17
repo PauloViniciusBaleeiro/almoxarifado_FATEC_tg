@@ -53,11 +53,13 @@ def requisita_material(request, **kwargs):
                 return redirect('requisita_new', requisição.id )
     if kwargs:
         id = kwargs['id']
+        atendida = Requisicao.objects.filter(id=id, situação__startswith='F')
+        atend = len(atendida)
         material_list = RequisicaoMaterial.objects.filter(requisicao=id)
         info = True
         return render(request, 'requisita_material.html', {'form_info': form_info, 'form_item': form_item,
                                                            'material_list': material_list, 'info': info,
-                                                           'requisicao':id})
+                                                           'requisicao':id, 'atendida': atend})
     return render(request, 'requisita_material.html', {'form_info': form_info, 'form_item': form_item,
                                                        'info': info})
 
@@ -246,11 +248,17 @@ def descarte(request):
         motivo = form.cleaned_data['motivo']
         item = form.save(commit=False)
         item.movimento = movimento
+        if not item.material.quantidade:
+            item.material.quantidade = 0
+        if quantidade > item.material.quantidade:
+            return HttpResponse('Não há a quantidade informada em estoque!')
         item.material.quantidade -= quantidade
         item.material.save()
         mov = registra_movimento(movimento, item.material, quantidade, motivo)
         item.save()
-        return redirect('descarte')
+        message = 'Descarte cadastrado com Sucesso!'
+        form2 = MovimentoItemForm(request.POST or None)
+        return render(request, 'descarte.html', {'message': message, 'form':form2})
 
     return render(request, 'descarte.html', {'form':form})
 
@@ -264,11 +272,17 @@ def decremento(request):
         motivo = form.cleaned_data['motivo']
         item = form.save(commit=False)
         item.movimento = movimento
+        if not item.material.quantidade:
+            item.material.quantidade = 0
+        if quantidade > item.material.quantidade:
+            return HttpResponse('Não há a quantidade informada em estoque!')
         item.material.quantidade -= quantidade
         item.material.save()
         mov = registra_movimento(movimento, item.material, quantidade, motivo)
         item.save()
-        return redirect('descarte')
+        message = 'Decremento cadastrado com Sucesso!'
+        form2 = MovimentoItemForm(request.POST or None)
+        return render(request, 'descarte.html', {'message': message, 'form': form2})
 
     return render(request, 'decremento.html', {'form': form})
 

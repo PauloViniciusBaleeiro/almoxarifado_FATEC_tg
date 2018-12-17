@@ -1,5 +1,5 @@
 from django.forms import ModelForm, DateInput
-from .models import ItemIventario, Inventario
+from .models import ItemIventario, Inventario, Material
 
 
 class InventarioForm(ModelForm):
@@ -10,7 +10,10 @@ class InventarioForm(ModelForm):
             'data': DateInput(),
         }
 
-
+class MaterialForm(ModelForm):
+    class Meta:
+        model = Material
+        fields = ['tipo_de_material']
 
 class ItemInventario_1Form(ModelForm):
     class Meta:

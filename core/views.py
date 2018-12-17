@@ -4,11 +4,21 @@ from django.contrib.auth.decorators import login_required
 from .forms import (FabricanteForms, CidadeForm, EstadoForms, ContatoForm, MaterialForm, TipodeMaterialForm,
                     EntradaMaterialForm)
 from .models import Fabricante, Contato, Material
+from movimento.models import Requisicao
 from movimento.models import Movimento, MovimentoMaterial
 
 
 def home(request):
-    return render(request, 'home.html')
+    requisicoes = Requisicao.objects.exclude(situação__startswith='F')
+    itens = len(requisicoes)
+    mat_qtd = []
+    materiais = Material.objects.all()
+    for m in materiais:
+        if m.quantidade and m.quantidade > 0:
+            if m.quantidade < 10:
+                mat_qtd.append(m)
+    num = len(mat_qtd)
+    return render(request, 'home.html', {'itens': itens, 'mat_qtd': mat_qtd, 'num': num})
 
 
 def logout(request):
@@ -168,6 +178,8 @@ def entrada_de_material(request):
     if form.is_valid():
         qtd = form.cleaned_data['quantidade']
         formulario = form.save(commit=False)
+        if not formulario.material.quantidade:
+            formulario.material.quantidade = 0
         formulario.material.quantidade += qtd
         formulario.material.save()
         movimento = registra_movimento(formulario.material, request.user, qtd)

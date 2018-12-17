@@ -29,6 +29,7 @@
                       <tr>
                         <th scope="col">Código do Material</th>
                         <th scope="col">Nome</th>
+                        <th scope="col">Tipo</th>
                         <th scope="col">Unidade</th>
                         <th scope="col">Quantidade</th>
                         <th scope="col">Consultar/Alterar</th>
@@ -40,7 +41,9 @@
                         <tr>
                           <td>{{ material.id }}</td>
                           <td>{{ material.nome }}</td>
+                          <td>{{ material.tipo_de_material }}</td>
                           <td>{{ material.unidade }}</td>
+                          {% if material.quantidade == None %}
                            <td> 0 </td>
                           {% else %}
                           <td>{{ material.quantidade }}</td>

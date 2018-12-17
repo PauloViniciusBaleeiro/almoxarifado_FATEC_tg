@@ -37,7 +37,13 @@ def perdas_avarias(request):
     movimentos = Movimento.objects.filter(tipo_de_movimento__startswith='A') | Movimento.objects.filter(tipo_de_movimento__contains='P')
     materiais = []
     for m in movimentos:
-        mat = MovimentoMaterial.objects.get(movimento=m)
-        materiais.append(mat)
+        try:
+            mat = MovimentoMaterial.objects.get(movimento=m)
+        except:
+            pass
+        if m:
+            materiais.append(mat)
+        else:
+            pass
     return render(request, 'perdas_avarias.html', {'materiais': materiais, 'resp': resp, 'data': data})
 

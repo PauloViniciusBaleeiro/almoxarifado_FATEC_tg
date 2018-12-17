@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block main %}
   <div id="page-wrapper">
@@ -6,6 +7,49 @@
       <div class="col-lg-12">
         <h1 class="page-header">Seja bem vindo!</h1>
       </div>
+{% if user.is_authenticated %}
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <b>Quadro de avisos!</b>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-6">
+{% if itens > 0 %}
+                  <div class="alert alert-warning" role="alert">
+  Há requisições para atendimento! <a href="{% url 'nao_atendidas' %}" class="alert-link">clique aqui</a>,  Para listá-las.
+</div>
+  {% else %}
+  <div class="alert alert-info" role="alert">
+  Não há requisições para atendimento!
+</div>
+                  {% endif %}
+                <div class="alert alert-success" role="alert">
+                  <i class="fa fa-arrow-circle-left"></i>
+                  Para interagir com o sistema, clique em um dos menus ao lado!
+                </div>
+                {% if num > 0 %}
+                  {% for m in mat_qtd %}
+                  <div class="alert alert-danger" role="alert">
+                  <i class="fa fa-exclamation"></i> O item {{ m.nome }} está com estoque inferior a 10 unidades!
+                  </div>
+                  {% endfor %}
+                {% endif %}
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+      {% else %}
+    <h1 align="center">AlmoxData</h1>
+  <div align="center">
+  <a href="{% url 'login' %}" class="btn btn-info">Login</a>
+  </div>
+    {% endif %}
     </div>
   </div>
 {% endblock %}
