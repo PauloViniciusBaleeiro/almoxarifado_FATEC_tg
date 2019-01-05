@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AlmoxData</title>
+  <link href="../../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- MetisMenu CSS -->
+  <link href="../../static/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="../../static/dist/css/sb-admin-2.css" rel="stylesheet">
+  <!-- Custom Fonts -->
+  <link href="../../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
+<body>
+{% if user.is_authenticated %}
+<div id="wrapper">
+        <!-- Navigation -->
+
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+          <ul class="nav navbar-top-links navbar-left">
+            <h2 align="center"> AlmoxData</h2>
+          </ul>
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
+                        Olá, {{ user.first_name }}   <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="http://localhost:8000/admin/auth/user"><i class="fa fa-user fa-fw"></i> Perfil do Usuário</a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:8000/admin/"><i class="fa fa-gear fa-fw"></i> Configurações</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{% url 'logout' %}"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+        </nav>
+          <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+              <ul class="nav" id="side-menu">
+                <li>
+                  <a id="linkMenuPrincipal" href="{% url 'home' %}"><i class="fa fa-home fa-fw"></i> Início</a>
+                </li>
+
+                <li>
+                  <a href="#" aria-expanded="false"><i class="fas fa-dolly" ></i> Movimentações<span class="fa arrow"></span></a>
+                  <ul class="nav nav-second-level collapse in">
+                    <li>
+                      <a id="linkMenuRequisitarMaterial" href="{% url 'requisicao' %}">Requisitar Material</a>
+                    </li>
+                    <li>
+                      <a id="linkMenuRequisicaoExtra" href="{% url 'nao_atendidas' %}">Atender Requisiçao</a>
+                    </li>
+                    <li>
+                      <a id="linkMenuLocalizarRequisicao" href="{% url 'localiza_requisicao' %}">Localizar Requisição</a>
+                    </li>
+                    <li>
+                      <a id="linkMenuEntradaMaterialEstoque" href="{% url 'entrada_de_material' %}">Entrada de Material em Estoque</a>
+                    </li>
+                    <li>
+                      <a id="linkMenuDecrementoDescarte" href="{% url 'descarte' %}">Decremento por Descarte</a>
+                    </li>
+
+                    <li>
+                      <a id="linkMenuDecrementoEstoque" href="{% url 'decremento' %}">Decremento de Estoque</a>
+                    </li>
+                    <li>
+                      <a id="linkMenuDevolverMaterial" href="{% url 'devolucao' %}">Devolver Material</a>
+                    </li>
+
+{#                    <li>#}
+{#                      <a id="linkMenuGerarEtiqueta" href="#">Gerar Etiqueta</a>#}
+{#                    </li>#}
+                    <li>
+                      <a id="linkMenuInventario" href="{% url 'lista_inventario' %}">Inventario</a>
+                    </li>
+                    <li>
+                      <a id="linkMenuPosicaoEstocagem" href="{% url 'list_posicoes' %}">Posição Estocagem</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#" class="collapse"><i class="fa fa-file-text" ></i> Relatórios<span class="fa arrow"></span></a>
+                  <ul class="nav nav-second-level collapse in">
+                    <li>
+                      <a href="{% url 'rel_movimentacoes' %}">Relatório de Movimentações</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'estoque' %}">Relatório de Posição de estoque</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'perdas_avarias' %}">Relatório de Perdas e Avarias</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#" class="collapse"><i class="fa fa-pencil-square-o" ></i> Cadastros<span class="fa arrow"></span></a>
+                  <ul class="nav nav-second-level collapse in">
+                      <li>
+                        <a id="linkMenuEditarFabricante" href="{% url 'lista_material' %}">Listar Materiais</a>
+                      </li>
+                      <li>
+                        <a id="linkMenuCadastroFabricante" href={% url 'novo_fabricante' %}>Cadastro de Fabricante</a>
+                      </li>
+                      <li>
+                        <a id="linkMenuCadastroMaterial" href="{% url 'novo_material' %}">Cadastro de Material</a>
+                      </li>
+                      <li>
+                        <a id="linkMenuCadastroUsuario" href="http://localhost:8000/admin/auth/user/">Cadastro de Usuario</a>
+                      </li>
+                      <li>
+                        <a id="linkMenuConsultaFabricante" href="{% url 'list_fabricantes' %}">Consulta de Fabricante</a>
+                      </li>
+                  </ul>
+                </li>
+            </div>
+            <!-- /.sidebar-collapse -->
+          </div>
+          <!-- /.navbar-static-side -->
+        </nav>
+</div>
+{% endif %}
+{% block main %}
+   {% endblock %}
+    {% if user.is_authenticated %}
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/dist/js/sb-admin-2.js"></script>
+    <script src="../static/js/menus.js"></script>
+    <script src="../static/vendor/metisMenu/metisMenu.min.js"></script>
+    {% endif %}
+<!-- Footer -->
+<footer class="panel-footer">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2018 Copyright:
+    <a href="#"> AlmoxData.com.br</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+</body>
+
+</html>

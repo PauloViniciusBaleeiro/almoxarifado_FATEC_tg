@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block main %}
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <b>Dados do material</b>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="alert alert-success" role="alert">
+                  <h4 class="alert-heading">Requisição atendida com sucesso!</h4>
+                  <p>A requisição nº {{ requisicao.id }} foi atendida com sucesso. Os itens listados abaixo foram baixados do estoque</p>
+                  <hr>
+                  <p class="mb-0"><b>Não esqueça de entregar os itens e quantidades confirmadas para {{ requisicao.usuario.first_name }}.</b></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <table width="100%" class="table table-striped table-bordered table-hover" >
+            <thead>
+            <tr>
+              <th>Código Material</th>
+              <th>Nome</th>
+              <th>Unidade de Medida</th>
+              <th>Quantidade</th>
+            </tr>
+            </thead>
+            {% for item in itens %}
+              <tbody>
+              <tr class="odd gradeA">
+                <td>{{ item.material.id }}</td>
+                <td>{{ item.material.nome }}</td>
+                <td>{{ item.material.unidade }}</td>
+                <td>{{ item.quantidade }}</td>
+              </tr>
+              </tbody>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+      <a href="{% url 'nao_atendidas' %}" class="btn btn-success">Retornar à listagem de requisições para atender</a>
+    </div>
+  </div>
+  </div>
+{% endblock %}
