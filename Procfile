@@ -1,0 +1,1 @@
+web: gunicorn TG_Fatec.wsgi --log-file -
