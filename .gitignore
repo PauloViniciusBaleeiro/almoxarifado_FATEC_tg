@@ -5,3 +5,16 @@ db.sqllite3
 .DS_Store
 media
 .env
+tabelas.png
+*.dot
+!/frontend/templates
+/frontend/*
+*.docx
+
+
+
+# migrations
+#core/migrations/0*
+#estocagem/migrations/0*
+#inventario/migrations/0*
+#movimento/migrations/0*

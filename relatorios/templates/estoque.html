@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatorio de Estoque</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+<div>
+  <h3 align="left">&emsp;AlmoxData</h3>
+  <h4 align="right">Posição de Estoque &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Data: {{ data }}&emsp;&emsp;</h4>
+  <h4 align="right">Detalhamento da posição de estoque &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Pagína 1 de 1&emsp;&emsp;</h4>
+</div>
+<div>
+  <hr/>
+  <h5 class="alinha">&emsp;Solicitante: {{ resp.id }} - {{ resp.first_name }} {{ resp.last_name }} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Almoxarifado </h5>
+<hr/>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th align="center" scope="col">Id do material</th>
+      <th align="center" scope="col">Nome</th>
+      <th scope="col">Tipo de Material</th>
+      <th scope="col"> Unidade</th>
+      <th scope="col">Quantidade</th>
+    </tr>
+  </thead>
+  {% for m in materiais %}
+  <tbody class="">
+    <tr>
+      <th scope="row">{{ m.id }}</th>
+      <td >{{ m.nome }}</td>
+      <td >{{ m.tipo_de_material}}</td>
+      <td >{{ m.unidade }}</td>
+      {% if m.quantidade == None %}
+      <td> 0 </td>
+      {% else %}
+      <td >{{ m.quantidade }}</td>
+      {% endif %}
+    </tr>
+  </tbody>
+  {% endfor %}
+</table>
+<hr/>
+<p align="center">AlmoxData© - Todos os direitos reservados</p>
+<hr/>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
