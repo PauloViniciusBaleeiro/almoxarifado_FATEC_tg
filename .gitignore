@@ -11,6 +11,7 @@ tabelas.png
 /frontend/*
 
 
+
 # migrations
 core/migrations/0*
 estocagem/migrations/0*
