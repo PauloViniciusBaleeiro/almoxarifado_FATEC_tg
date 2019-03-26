@@ -9,6 +9,7 @@ tabelas.png
 *.dot
 !/frontend/templates
 /frontend/*
+*.docx
 
 
 
