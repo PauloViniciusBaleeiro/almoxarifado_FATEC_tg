@@ -21,7 +21,7 @@
                     <img src="{% static "img/logo_verde.png" %}" alt="AlmoxData" class="brand-logo logotipo"> <a href="#!" class="brand-logo"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a href="#" class="waves-effect waves-light btn pulse logar">Logar</a></li>
+                        <li><a href="{% url 'login' %}" class="waves-effect waves-light btn pulse logar">Logar</a></li>
                         <li><a href="#inicio" class="menu-link">Almoxarifado</a></li>
                         <li><a href="#destaques" class="menu-link">Destaques</a></li>
                         <li><a href="#contato" class="menu-link">Contatos</a></li>
@@ -32,7 +32,7 @@
         </div>
         <!-- NAV BAR MOBILE -->
         <ul class="sidenav green accent-1" id="mobile-demo">
-                <li><a href="#" class="waves-effect waves-light btn pulse logar">Logar</a></li>
+                <li><a href="{% url 'login' %}" class="waves-effect waves-light btn pulse logar">Logar</a></li>
                 <li><a href="#inicio">Almoxarifado</a></li>
                 <li><a href="#destaques">Destaques</a></li>
                 <li><a href="#contato">Contatos</a></li>
