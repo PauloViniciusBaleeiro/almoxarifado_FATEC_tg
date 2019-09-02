@@ -7,7 +7,11 @@ from .models import Fabricante, Contato, Material
 from movimento.models import Requisicao
 from movimento.models import Movimento, MovimentoMaterial
 
+def landing(request):
+    return render(request, 'landing_page.html')
 
+
+@login_required
 def home(request):
     requisicoes = Requisicao.objects.exclude(situação__startswith='F')
     itens = len(requisicoes)
@@ -23,7 +27,7 @@ def home(request):
 
 def logout(request):
     logout(request)
-    return redirect('home')
+    return redirect('landing')
 
 
 @login_required

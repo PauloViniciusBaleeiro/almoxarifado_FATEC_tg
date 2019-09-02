@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,8 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Icons import -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="shortcut icon" href="./img/almoxdata_green.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href=" {% static "css/style.css" %}">
+    <link rel="shortcut icon" href="" type="image/x-icon">
 <title>AlmoxData</title>
 </head>
 <body onload="setYear()">
@@ -17,7 +18,7 @@
         <div class="navbar-fixed">
             <nav>
                 <div class="nav-wrapper green accent-2">
-                    <img src="./img/logo_verde.png" alt="AlmoxData" class="brand-logo logotipo"> <a href="#!" class="brand-logo"></a>
+                    <img src="{% static "img/logo_verde.png" %}" alt="AlmoxData" class="brand-logo logotipo"> <a href="#!" class="brand-logo"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a href="#" class="waves-effect waves-light btn pulse logar">Logar</a></li>
@@ -42,7 +43,7 @@
         <!-- INÍCIO DA PRIMEIRA SESSÃO CONTENDO A IMAGEM  -->
         <section id="inicio">
             <figure>
-                <img class="responsive-img" src="img/almoxarif.jpg" alt="Imagem conceitual de almoxarifado">
+                <img class="responsive-img" src="{% static "img/almoxarif.jpg" %}" alt="Imagem conceitual de almoxarifado">
             </figure>
         </section >
         <!-- FIM DA SESSÃO SESSÃO CONTENDO A IMAGEM -->
@@ -85,7 +86,7 @@
                 <div class="row">
                     <div class="card col s12 l12 hoverable">
                         <div class="card-image">
-                            <img src="./img/imagen_contato.png" alt="">
+                            <img src="static/img/imagen_contato.png" alt="">
                         </div>
                         <div class="card-content">
                             <form action="submit">
@@ -131,7 +132,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m7">
-                    <p class="footer_itens"><img src="./img/logo_verde.png" alt="AlmoxData logo"></p>
+                    <p class="footer_itens"><img src="static/img/logo_verde.png" alt="AlmoxData logo"></p>
                     <p>A plataforma definitiva de controle de estoque, disponível a qualquer hora e em qualquer lugar!</p>
                 </div>
                 <div class="col s12 m5 footer_itens">
@@ -158,6 +159,6 @@
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script src="js/welcome.js"></script>
+<script src="{% static "js/welcome.js" %}"></script>
 </body>
 </html>
