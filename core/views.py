@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import (FabricanteForms, CidadeForm, EstadoForms, ContatoForm, MaterialForm, TipodeMaterialForm,
                     EntradaMaterialForm)
@@ -8,6 +8,22 @@ from movimento.models import Requisicao
 from movimento.models import Movimento, MovimentoMaterial
 
 
+def landing(request):
+    return render(request, 'landing_page.html')
+
+
+def login(request):
+    username = request.post['username']
+    password = request.post['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect('home')
+    else:
+        return redirect('landing')
+
+
+@login_required
 def home(request):
     requisicoes = Requisicao.objects.exclude(situação__startswith='F')
     itens = len(requisicoes)
@@ -23,7 +39,7 @@ def home(request):
 
 def logout(request):
     logout(request)
-    return redirect('home')
+    return redirect('landing')
 
 
 @login_required

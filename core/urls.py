@@ -1,14 +1,15 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import (home, logout, listagem_fabricante as list, novo_fabricante as novo, deletar_fabricante as delete,
+from .views import (landing, home, logout, listagem_fabricante as list, novo_fabricante as novo, deletar_fabricante as delete,
                     cadastra_cidade, cadastra_estado, cadastra_contato, atualiza_fabricante, remove_contato,
                     lista_material as list_m, lista_material_a as list_a, cadastra_material,
                     cadastra_tipo_de_material as cad_tipo_mat, altera_material, entrada_de_material,
                     deleta_material)
 
 urlpatterns = [
-    path('', home, name='home'),
+    path('', landing, name='landing'),
+    path('home/', home, name='home'),
     path('logout/', logout, name='logout'),
     path('fabricantes/', list, name='list_fabricantes'),
     path('fabricantes/novo/', novo, name='novo_fabricante'),
