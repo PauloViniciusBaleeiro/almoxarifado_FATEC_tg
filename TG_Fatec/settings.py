@@ -150,7 +150,7 @@ LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_REDIRECT_URL = '/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/img')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/static/img')
 
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 DATE_FORMAT = ["%d/%m/%Y"]
