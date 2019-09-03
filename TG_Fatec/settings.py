@@ -146,10 +146,12 @@ STATICFILES_DIRS = (
     os.path.join(FRONTEND_DIR, 'static'),
 )
 LOGIN_URL = '/users/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/home/'
+LOGOUT_REDIRECT_URL = '/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/img')
 
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 DATE_FORMAT = ["%d/%m/%Y"]
+
