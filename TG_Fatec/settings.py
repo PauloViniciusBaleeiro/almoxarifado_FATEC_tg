@@ -25,7 +25,7 @@ FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #config('DEBUG', default=False)
+DEBUG = config('DEBUG', default=False)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*')
 
