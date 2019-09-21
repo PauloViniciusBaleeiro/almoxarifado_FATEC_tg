@@ -25,7 +25,7 @@ FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False)
+DEBUG = False #config('DEBUG', default=False)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*')
 
@@ -150,7 +150,7 @@ LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_REDIRECT_URL = '/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/static/img')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'frontend/static')
 
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 DATE_FORMAT = ["%d/%m/%Y"]
